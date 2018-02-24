@@ -6,18 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://linkstack.com">
-  <title>Archives | linkstack</title>
+  <title>ES6之reduce遍历数组 | linkstack</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="start from zero">
-<meta property="og:type" content="website">
-<meta property="og:title" content="linkstack">
-<meta property="og:url" content="http://linkstack.com/archives/index.html">
+  <meta name="description" content="ES6之reduce遍历数组">
+<meta name="keywords" content="ES6">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ES6之reduce遍历数组">
+<meta property="og:url" content="http://linkstack.com/2018/02/24/ES6之reduce/index.html">
 <meta property="og:site_name" content="linkstack">
-<meta property="og:description" content="start from zero">
+<meta property="og:description" content="ES6之reduce遍历数组">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-02-24T01:58:32.050Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="linkstack">
-<meta name="twitter:description" content="start from zero">
+<meta name="twitter:title" content="ES6之reduce遍历数组">
+<meta name="twitter:description" content="ES6之reduce遍历数组">
   
     <link rel="alternative" href="/atom.xml" title="linkstack" type="application/atom+xml">
   
@@ -157,36 +159,89 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-ES6之reduce" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/02/24/ES6之reduce/" class="archive-article-date">
-  	<time datetime="2018-02-24T01:55:40.556Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-02-24</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/02/24/ES6之reduce/">ES6之reduce遍历数组</a>
+    <h1 class="article-title" itemprop="name">
+      ES6之reduce遍历数组
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2018/02/24/ES6之reduce/" class="archive-article-date">
+  	<time datetime="2018-02-24T01:55:40.556Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-02-24</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>除了for方法，研究数组的那几个迭代方法。使用下来，感觉确实妙用无穷，仿佛自己的逼格在无形中变得高大了一点点，重新一些总结文章。</p>
+<p>这篇文章就是专门总结reduce方法的，这个方法大有可研究的地方，值得大家get它并去同手实践一下。</p>
+<p>上一篇文章我认为reduce是一个聚合或者减少方法，它可以将数组中的每一项通过叠加变成一项，但是其实这种说法似乎不太准确。先不管这个，我们来看看例子再说。</p>
+<p>从最简单的例子开始。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">var  arr = [1, 2, 3, 4, 5];</div><div class="line">sum = arr.reduce(function(prev, cur, index, arr) &#123;</div><div class="line">    console.log(prevres, cur, index);</div><div class="line">    return prevres + cur;</div><div class="line">&#125;)</div><div class="line">console.log(arr, sum);</div></pre></td></tr></table></figure>
+<p>输出结果</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">1 2 1</div><div class="line">3 3 2</div><div class="line">6 4 3</div><div class="line">10 5 4</div><div class="line">[1, 2, 3, 4, 5] 15</div></pre></td></tr></table></figure>
+<p>我们先重新回顾一下reduce中回调函数的参数，这个回调函数中有4个参数，意思分别为</p>
+<p>prev: 第一项的值或者上一次叠加的结果值<br>cur: 当前会参与叠加的项<br>index： 当前值的索引<br>arr: 数组本身</p>
+<p>首先我们要区分prev与cur这2个参数的区别，刚开始的时候我以为他们是一种类型的，可是后来我发现我理解错了。prev表示每次叠加之后的结果，类型可能与数组中的每一项不同，而cur则表示数组中参与叠加的当前项。在后边我们可以结合实例来理解这个地方。</p>
+<p>其次我们看到，上例中其实值遍历了4次，数组有五项。数组中的第一项被当做了prev的初始值，而遍历从第二项开始。</p>
+<p>我们看下面一个例子。</p>
+<p>某同学的期末成绩如下表示</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">var result = [</div><div class="line">    &#123;</div><div class="line">        subject: &apos;math&apos;,</div><div class="line">        score: 88</div><div class="line">    &#125;,</div><div class="line">    &#123;</div><div class="line">        subject: &apos;chinese&apos;,</div><div class="line">        score: 95</div><div class="line">    &#125;,</div><div class="line">    &#123;</div><div class="line">        subject: &apos;english&apos;,</div><div class="line">        score: 80</div><div class="line">    &#125;</div><div class="line">];</div></pre></td></tr></table></figure>
+<p>如何求该同学的总成绩？</p>
+<p>很显然，利用for循环可以很简单得出结论</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">var sum = 0;</div><div class="line">for(var i=0; i&lt;result.length; i++) &#123;</div><div class="line">    sum += result[i].score;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>但是我们的宗旨就是抛弃for循环，因此使用reduce来搞定这个问题</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">var sum = result.reduce(function(prev, cur) &#123;</div><div class="line">    return cur.score + prev;</div><div class="line">&#125;, 0);</div></pre></td></tr></table></figure>
+<p>这个时候，我给reduce参数添加了第二个参数。通过打印我发现设置了这个参数之后，reduce遍历便已经从第一项开始了。</p>
+<p>这第二个参数就是设置prev的初始类型和初始值，比如为0，就表示prev的初始值为number类型，值为0，因此，reduce的最终结果也会是number类型。</p>
+<p>因为第二个参数为累计结果的初始值，因此假设该同学因为违纪被处罚在总成绩总扣10分，只需要将初始值设置为-10即可。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">var sum = result.reduce(function(prev, cur) &#123;</div><div class="line">    return cur.score + prev;</div><div class="line">&#125;, -10);</div></pre></td></tr></table></figure>
+<p>我们来给这个例子增加一点难度。假如该同学的总成绩中，各科所占的比重不同，分别为50%，30%，20%，我们应该如何求出最终的权重结果呢？</p>
+<p>解决方案如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">var dis = &#123;</div><div class="line">    math: 0.5,</div><div class="line">    chinese: 0.3,</div><div class="line">    english: 0.2</div><div class="line">&#125;</div><div class="line"></div><div class="line">var sum = result.reduce(function(prev, cur) &#123;</div><div class="line">    console.log(prev);</div><div class="line">    return cur.score + prev;</div><div class="line">&#125;, -10);</div><div class="line"></div><div class="line">var qsum = result.reduce(function(prev, cur) &#123;</div><div class="line">    return prev + cur.score * dis[cur.subject]</div><div class="line">&#125;, 0)</div><div class="line"></div><div class="line">console.log(sum, qsum);</div></pre></td></tr></table></figure>
+<p>为了计算出权重之后的总值，我们在回调函数内部修改了数组当前项，是使他和权重比例关联袭来，并重新返回一个一样的回调函数，将新修改的当前项传入，就和之前的例子是一样的了。</p>
+<p>在segmentfault上看到一个面试题，问如何知道一串字符串中每个字母出现的次数？</p>
+<p>我们可以运用reduce来解决这个问题。</p>
+<p>我们在reduce的第二个参数里面初始了回调函数第一个参数的类型和值，将字符串转化为数组，那么迭代的结果将是一个对象，对象的每一项key值就是字符串的字母。运行感受一下吧。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">var arrString = &apos;abcdaabc&apos;;</div><div class="line"></div><div class="line">arrString.split(&apos;&apos;).reduce(function(res, cur) &#123;</div><div class="line">    res[cur] ? res[cur] ++ : res[cur] = 1</div><div class="line">    return res;</div><div class="line">&#125;, &#123;&#125;)</div></pre></td></tr></table></figure>
+<p>由于可以通过第二参数设置叠加结果的类型初始值，因此这个时候reduce就不再仅仅只是做一个加法了，我们可以灵活的运用它来进行各种各样的类型转换，比如将数组按照一定规则转换为对象，也可以将一种形式的数组转换为另一种形式的数组，大家可以动手去尝试一样。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[1, 2].reduce(function(res, cur) &#123; </div><div class="line">    res.push(cur + 1); </div><div class="line">    return res; </div><div class="line">&#125;, [])</div></pre></td></tr></table></figure>
+<p>这种特性使得reduce在实际开发中大有可为！但是需要注意点，在ie9一下的浏览器中，并不支持该方法 ！</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -198,7 +253,7 @@
 		</ul>
 	</div>
 
-          
+      
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
@@ -211,134 +266,102 @@
 	</div>
 
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
       
-        </div></section>
+
       
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://linkstack.com/2018/02/24/ES6之reduce/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/08/18/上传图片/" class="archive-article-date">
-  	<time datetime="2017-08-18T05:33:12.898Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-18</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/08/18/上传图片/">angular上传图片</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">angular</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">upload</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/默认分类/" class="article-tag-list-link color5">默认分类</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/08/18/article-title/" class="archive-article-date">
-  	<time datetime="2017-08-18T05:05:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-18</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2017/08/18/上传图片/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">angular上传图片</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/08/18/article-title/">article title</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/08/18/hello-world/" class="archive-article-date">
-  	<time datetime="2017-08-18T04:56:09.852Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-18</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/08/18/hello-world/">Hello World</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-  
-    </div></section>
-  
-
-    
 
 
           </div>
@@ -361,8 +384,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
