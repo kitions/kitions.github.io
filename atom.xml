@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://kitions.github.io/"/>
-  <updated>2018-03-05T02:53:46.966Z</updated>
+  <updated>2018-03-16T08:59:12.656Z</updated>
   <id>https://kitions.github.io/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>rgba与opacity的区别</title>
+    <link href="https://kitions.github.io/2018/03/16/rgba%E5%92%8Copacity/"/>
+    <id>https://kitions.github.io/2018/03/16/rgba和opacity/</id>
+    <published>2018-03-16T08:55:22.185Z</published>
+    <updated>2018-03-16T08:59:12.656Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="rgba与opacity的区别以及在遮罩层的运用"><a href="#rgba与opacity的区别以及在遮罩层的运用" class="headerlink" title="rgba与opacity的区别以及在遮罩层的运用"></a>rgba与opacity的区别以及在遮罩层的运用</h1><p>两者的区别</p><p>如标题所示，今天我们谈谈rgba和opacity有什么区别？</p><p>这次我又来做一次搬运工了，哈哈(●’◡’●)</p><p>RGBA是代表Red（红色） Green（绿色） Blue（蓝色）和 Alpha的色彩空间。</p><p>R：红色值。正整数 | 百分数</p><p>G ：绿色值。正整数 | 百分数</p><p>B ：蓝色值。正整数| 百分数</p><p>A ：透明度。取值0~1之间</p><p>此处的a代表透明度，我们再来看看opacity </p><p>opacity 属性设置元素的不透明级别。</p><p>value：规定不透明度。从 0.0 （完全透明）到 1.0（完全不透明）。</p><p>这么看来，两者都是透明度的设置，可是实际用起来却不一样。</p><ul><li><p><strong>经过实战，我们会发现设置了<code>opacity</code>的元素内的子元素们都被影响了，设置了opacity的元素它的子元素都<code>继承了他的设置</code>，透明度都是一样的。</strong></p></li><li><p>而rgba所设置的透明度，只会影响他自己本身，而其中的子元素不会被其所影响。</p></li></ul><p>如何应用</p><p>看到了rgba的特性，我们想到了什么？</p><p>没错！就是遮罩层！</p><p>就是那种弹框之后的透明深色背景，很炫的那种(●’◡’●)</p><p>直接上代码：</p><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">html:</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"shade"</span>&gt;</span>   <span class="comment">&lt;!-- 这是遮罩层--&gt;</span></span><br><span class="line"></span><br><span class="line">　　<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"pop_up"</span>&gt;</span>这是弹框<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">css:</span><br><span class="line"></span><br><span class="line">　　.shade&#123;</span><br><span class="line"></span><br><span class="line">　　　　width: 100%;</span><br><span class="line"></span><br><span class="line">　　　　height: 100%;</span><br><span class="line"></span><br><span class="line"> 　　　  background: rgba(0,0,0,.8);   <span class="comment">&lt;!--黑色背景，透明度为0.8--&gt;</span></span><br><span class="line"></span><br><span class="line">　　　　position: fixed;      <span class="comment">&lt;!--固定全屏大小--&gt;</span></span><br><span class="line"></span><br><span class="line">　　　　top: 0;</span><br><span class="line"></span><br><span class="line">　　　　left: 0;</span><br><span class="line"></span><br><span class="line"> 　　　  z-index: 10;</span><br><span class="line"></span><br><span class="line">　　&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      rgba与opacity的区别以及在遮罩层的运用,设置了opacity的元素内的子元素们都被影响了，设置了opacity的元素它的子元素都`继承了他的设置`，透明度都是一样的.而rgba所设置的透明度，只会影响他自己本身，而其中的子元素不会被其所影响。
+    
+    </summary>
+    
+      <category term="默认分类" scheme="https://kitions.github.io/categories/%E9%BB%98%E8%AE%A4%E5%88%86%E7%B1%BB/"/>
+    
+    
+      <category term="CSS" scheme="https://kitions.github.io/tags/CSS/"/>
+    
+  </entry>
   
   <entry>
     <title>ES6之promise</title>
