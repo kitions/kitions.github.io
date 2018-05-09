@@ -5,9 +5,9 @@
   <subtitle>the stack of it nerds</subtitle>
   <link href="/atom.xml" rel="self"/>
   
-  <link href="https://kitions.github.io/"/>
+  <link href="http://link01.top/"/>
   <updated>2018-04-24T02:41:31.662Z</updated>
-  <id>https://kitions.github.io/</id>
+  <id>http://link01.top/</id>
   
   <author>
     <name>link</name>
@@ -18,12 +18,12 @@
   
   <entry>
     <title>圣杯布局</title>
-    <link href="https://kitions.github.io/2018/04/24/%E5%9C%A3%E6%9D%AF%E5%B8%83%E5%B1%80/"/>
-    <id>https://kitions.github.io/2018/04/24/圣杯布局/</id>
+    <link href="http://link01.top/2018/04/24/%E5%9C%A3%E6%9D%AF%E5%B8%83%E5%B1%80/"/>
+    <id>http://link01.top/2018/04/24/圣杯布局/</id>
     <published>2018-04-24T01:46:05.087Z</published>
     <updated>2018-04-24T02:41:31.662Z</updated>
     
-    <content type="html"><![CDATA[<p>flex应用之一</p><p><img src="https://ws2.sinaimg.cn/large/006tKfTcgy1fqni3jw5ymj31kw0wljt2.jpg" style="width:400px"></p><p>如果是小屏幕，躯干的三栏自动变为垂直叠加。隐藏aside</p><p><img src="https://ws3.sinaimg.cn/large/006tKfTcgy1fqni5pg7hqj30rg13q0ur.jpg" style="width:400px"></p><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>layout<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">"text/css"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">    .header &#123;</span></span><br><span class="line"><span class="undefined">        height: 120px;</span></span><br><span class="line"><span class="undefined">        background: aliceblue;</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined">    .footer&#123;</span></span><br><span class="line"><span class="undefined">        height: 120px;</span></span><br><span class="line"><span class="undefined">        background:aqua ;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">    .HolyGrail-body&#123;</span></span><br><span class="line"><span class="undefined">        min-height: 400px;</span></span><br><span class="line"><span class="undefined">        display: flex;</span></span><br><span class="line"><span class="undefined">        flex: 1;</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined">    .HolyGrail-content&#123;</span></span><br><span class="line"><span class="undefined">        flex: 1;</span></span><br><span class="line"><span class="undefined">        background: blueviolet;</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined">    .HolyGrail-nav, .HolyGrail-ads&#123;</span></span><br><span class="line"><span class="undefined">        flex:  0 0 200px;</span></span><br><span class="line"><span class="undefined">        background: yellow;</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined">    .HolyGrail-ads&#123;</span></span><br><span class="line"><span class="undefined">        background: chartreuse;</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined">    .HolyGrail-nav&#123;</span></span><br><span class="line"><span class="undefined">        order:-1</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined">    @media(max-width: 768px)&#123;</span></span><br><span class="line"><span class="undefined">        .HolyGrail-body&#123;</span></span><br><span class="line"><span class="undefined">            flex-direction: column;</span></span><br><span class="line"><span class="undefined">            flex: 1;</span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="undefined">        .HolyGrail-nav,.HolyGrail-content&#123;</span></span><br><span class="line"><span class="undefined">            flex: auto;</span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="undefined">        .HolyGrail-ads&#123;</span></span><br><span class="line"><span class="undefined">            display: none;</span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">header</span> <span class="attr">class</span>=<span class="string">"header"</span>&gt;</span>header<span class="tag">&lt;/<span class="name">header</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"HolyGrail-body"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">main</span> <span class="attr">class</span>=<span class="string">"HolyGrail-content"</span>&gt;</span>main<span class="tag">&lt;/<span class="name">main</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">nav</span> <span class="attr">class</span>=<span class="string">"HolyGrail-nav"</span>&gt;</span>nav<span class="tag">&lt;/<span class="name">nav</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">aside</span> <span class="attr">class</span>=<span class="string">"HolyGrail-ads"</span>&gt;</span>aside<span class="tag">&lt;/<span class="name">aside</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">footer</span> <span class="attr">class</span>=<span class="string">"footer"</span>&gt;</span>footer<span class="tag">&lt;/<span class="name">footer</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>]]></content>
+    <content type="html"><![CDATA[<p>flex应用之一</p><p><img src="https://ws2.sinaimg.cn/large/006tKfTcgy1fqni3jw5ymj31kw0wljt2.jpg" style="width:400px"></p><p>如果是小屏幕，躯干的三栏自动变为垂直叠加。隐藏aside</p><p><img src="https://ws3.sinaimg.cn/large/006tKfTcgy1fqni5pg7hqj30rg13q0ur.jpg" style="width:400px"></p><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>layout<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">"text/css"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="css">    <span class="selector-class">.header</span> &#123;</span></span><br><span class="line"><span class="undefined">        height: 120px;</span></span><br><span class="line"><span class="undefined">        background: aliceblue;</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="css">    <span class="selector-class">.footer</span>&#123;</span></span><br><span class="line"><span class="undefined">        height: 120px;</span></span><br><span class="line"><span class="css">        <span class="selector-tag">background</span><span class="selector-pseudo">:aqua</span> ;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="css">    <span class="selector-class">.HolyGrail-body</span>&#123;</span></span><br><span class="line"><span class="undefined">        min-height: 400px;</span></span><br><span class="line"><span class="undefined">        display: flex;</span></span><br><span class="line"><span class="undefined">        flex: 1;</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="css">    <span class="selector-class">.HolyGrail-content</span>&#123;</span></span><br><span class="line"><span class="undefined">        flex: 1;</span></span><br><span class="line"><span class="undefined">        background: blueviolet;</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="css">    <span class="selector-class">.HolyGrail-nav</span>, <span class="selector-class">.HolyGrail-ads</span>&#123;</span></span><br><span class="line"><span class="undefined">        flex:  0 0 200px;</span></span><br><span class="line"><span class="undefined">        background: yellow;</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="css">    <span class="selector-class">.HolyGrail-ads</span>&#123;</span></span><br><span class="line"><span class="undefined">        background: chartreuse;</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="css">    <span class="selector-class">.HolyGrail-nav</span>&#123;</span></span><br><span class="line"><span class="css">        <span class="selector-tag">order</span><span class="selector-pseudo">:-1</span></span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined">    @media(max-width: 768px)&#123;</span></span><br><span class="line"><span class="css">        <span class="selector-class">.HolyGrail-body</span>&#123;</span></span><br><span class="line"><span class="undefined">            flex-direction: column;</span></span><br><span class="line"><span class="undefined">            flex: 1;</span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="css">        <span class="selector-class">.HolyGrail-nav</span>,<span class="selector-class">.HolyGrail-content</span>&#123;</span></span><br><span class="line"><span class="undefined">            flex: auto;</span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="css">        <span class="selector-class">.HolyGrail-ads</span>&#123;</span></span><br><span class="line"><span class="undefined">            display: none;</span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">header</span> <span class="attr">class</span>=<span class="string">"header"</span>&gt;</span>header<span class="tag">&lt;/<span class="name">header</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"HolyGrail-body"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">main</span> <span class="attr">class</span>=<span class="string">"HolyGrail-content"</span>&gt;</span>main<span class="tag">&lt;/<span class="name">main</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">nav</span> <span class="attr">class</span>=<span class="string">"HolyGrail-nav"</span>&gt;</span>nav<span class="tag">&lt;/<span class="name">nav</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">aside</span> <span class="attr">class</span>=<span class="string">"HolyGrail-ads"</span>&gt;</span>aside<span class="tag">&lt;/<span class="name">aside</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">footer</span> <span class="attr">class</span>=<span class="string">"footer"</span>&gt;</span>footer<span class="tag">&lt;/<span class="name">footer</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>]]></content>
     
     <summary type="html">
     
@@ -31,17 +31,17 @@
     
     </summary>
     
-      <category term="默认分类" scheme="https://kitions.github.io/categories/%E9%BB%98%E8%AE%A4%E5%88%86%E7%B1%BB/"/>
+      <category term="默认分类" scheme="http://link01.top/categories/%E9%BB%98%E8%AE%A4%E5%88%86%E7%B1%BB/"/>
     
     
-      <category term="HTML" scheme="https://kitions.github.io/tags/HTML/"/>
+      <category term="HTML" scheme="http://link01.top/tags/HTML/"/>
     
   </entry>
   
   <entry>
     <title>JS深拷贝和浅拷贝</title>
-    <link href="https://kitions.github.io/2018/04/23/js%E6%B7%B1%E6%8B%B7%E8%B4%9D%E6%B5%85%E6%8B%B7%E8%B4%9D/"/>
-    <id>https://kitions.github.io/2018/04/23/js深拷贝浅拷贝/</id>
+    <link href="http://link01.top/2018/04/23/js%E6%B7%B1%E6%8B%B7%E8%B4%9D%E6%B5%85%E6%8B%B7%E8%B4%9D/"/>
+    <id>http://link01.top/2018/04/23/js深拷贝浅拷贝/</id>
     <published>2018-04-23T06:46:59.916Z</published>
     <updated>2018-04-23T06:54:02.452Z</updated>
     
@@ -53,17 +53,17 @@
     
     </summary>
     
-      <category term="js" scheme="https://kitions.github.io/categories/js/"/>
+      <category term="js" scheme="http://link01.top/categories/js/"/>
     
     
-      <category term="js" scheme="https://kitions.github.io/tags/js/"/>
+      <category term="js" scheme="http://link01.top/tags/js/"/>
     
   </entry>
   
   <entry>
     <title>八个明确（忽略）</title>
-    <link href="https://kitions.github.io/2018/04/19/8%E4%B8%AA%E6%98%8E%E7%A1%AE/"/>
-    <id>https://kitions.github.io/2018/04/19/8个明确/</id>
+    <link href="http://link01.top/2018/04/19/8%E4%B8%AA%E6%98%8E%E7%A1%AE/"/>
+    <id>http://link01.top/2018/04/19/8个明确/</id>
     <published>2018-04-19T07:19:56.406Z</published>
     <updated>2018-04-24T02:08:37.245Z</updated>
     
@@ -80,8 +80,8 @@
   
   <entry>
     <title>http请求协议</title>
-    <link href="https://kitions.github.io/2018/04/02/http%E8%AF%B7%E6%B1%82%E5%8D%8F%E8%AE%AE/"/>
-    <id>https://kitions.github.io/2018/04/02/http请求协议/</id>
+    <link href="http://link01.top/2018/04/02/http%E8%AF%B7%E6%B1%82%E5%8D%8F%E8%AE%AE/"/>
+    <id>http://link01.top/2018/04/02/http请求协议/</id>
     <published>2018-04-02T08:26:12.426Z</published>
     <updated>2018-04-23T05:23:56.719Z</updated>
     
@@ -93,15 +93,15 @@
     
     </summary>
     
-      <category term="http" scheme="https://kitions.github.io/categories/http/"/>
+      <category term="http" scheme="http://link01.top/categories/http/"/>
     
     
   </entry>
   
   <entry>
     <title>VUE.JS 双向绑定实现原理Object.defineProperty()</title>
-    <link href="https://kitions.github.io/2018/03/28/vue.js%20%E5%8F%8C%E5%90%91%E7%BB%91%E5%AE%9A%E5%8E%9F%E7%90%86/"/>
-    <id>https://kitions.github.io/2018/03/28/vue.js 双向绑定原理/</id>
+    <link href="http://link01.top/2018/03/28/vue.js%20%E5%8F%8C%E5%90%91%E7%BB%91%E5%AE%9A%E5%8E%9F%E7%90%86/"/>
+    <id>http://link01.top/2018/03/28/vue.js 双向绑定原理/</id>
     <published>2018-03-28T03:16:09.142Z</published>
     <updated>2018-04-11T05:35:04.610Z</updated>
     
@@ -113,17 +113,17 @@
     
     </summary>
     
-      <category term="vue.js" scheme="https://kitions.github.io/categories/vue-js/"/>
+      <category term="vue.js" scheme="http://link01.top/categories/vue-js/"/>
     
     
-      <category term="vue.js" scheme="https://kitions.github.io/tags/vue-js/"/>
+      <category term="vue.js" scheme="http://link01.top/tags/vue-js/"/>
     
   </entry>
   
   <entry>
     <title>遮罩层的实现</title>
-    <link href="https://kitions.github.io/2018/03/22/%E9%81%AE%E7%BD%A9%E5%B1%82/"/>
-    <id>https://kitions.github.io/2018/03/22/遮罩层/</id>
+    <link href="http://link01.top/2018/03/22/%E9%81%AE%E7%BD%A9%E5%B1%82/"/>
+    <id>http://link01.top/2018/03/22/遮罩层/</id>
     <published>2018-03-22T11:56:33.710Z</published>
     <updated>2018-03-28T07:35:00.490Z</updated>
     
@@ -135,15 +135,15 @@
     
     </summary>
     
-      <category term="默认分类" scheme="https://kitions.github.io/categories/%E9%BB%98%E8%AE%A4%E5%88%86%E7%B1%BB/"/>
+      <category term="默认分类" scheme="http://link01.top/categories/%E9%BB%98%E8%AE%A4%E5%88%86%E7%B1%BB/"/>
     
     
   </entry>
   
   <entry>
     <title>Object.prototype.toString.call(value)</title>
-    <link href="https://kitions.github.io/2018/03/19/Object.prototype.toString.call()/"/>
-    <id>https://kitions.github.io/2018/03/19/Object.prototype.toString.call()/</id>
+    <link href="http://link01.top/2018/03/19/Object.prototype.toString.call()/"/>
+    <id>http://link01.top/2018/03/19/Object.prototype.toString.call()/</id>
     <published>2018-03-19T09:53:50.735Z</published>
     <updated>2018-03-19T10:14:49.044Z</updated>
     
@@ -155,17 +155,17 @@
     
     </summary>
     
-      <category term="默认分类" scheme="https://kitions.github.io/categories/%E9%BB%98%E8%AE%A4%E5%88%86%E7%B1%BB/"/>
+      <category term="默认分类" scheme="http://link01.top/categories/%E9%BB%98%E8%AE%A4%E5%88%86%E7%B1%BB/"/>
     
     
-      <category term="JS" scheme="https://kitions.github.io/tags/JS/"/>
+      <category term="JS" scheme="http://link01.top/tags/JS/"/>
     
   </entry>
   
   <entry>
     <title>rgba与opacity的区别</title>
-    <link href="https://kitions.github.io/2018/03/16/rgba%E5%92%8Copacity/"/>
-    <id>https://kitions.github.io/2018/03/16/rgba和opacity/</id>
+    <link href="http://link01.top/2018/03/16/rgba%E5%92%8Copacity/"/>
+    <id>http://link01.top/2018/03/16/rgba和opacity/</id>
     <published>2018-03-16T08:55:22.185Z</published>
     <updated>2018-03-16T08:59:12.656Z</updated>
     
@@ -177,17 +177,17 @@
     
     </summary>
     
-      <category term="默认分类" scheme="https://kitions.github.io/categories/%E9%BB%98%E8%AE%A4%E5%88%86%E7%B1%BB/"/>
+      <category term="默认分类" scheme="http://link01.top/categories/%E9%BB%98%E8%AE%A4%E5%88%86%E7%B1%BB/"/>
     
     
-      <category term="CSS" scheme="https://kitions.github.io/tags/CSS/"/>
+      <category term="CSS" scheme="http://link01.top/tags/CSS/"/>
     
   </entry>
   
   <entry>
     <title>ES6之promise</title>
-    <link href="https://kitions.github.io/2018/02/26/ES6%D6%AEpromise/"/>
-    <id>https://kitions.github.io/2018/02/26/ES6֮promise/</id>
+    <link href="http://link01.top/2018/02/26/ES6%D6%AEpromise/"/>
+    <id>http://link01.top/2018/02/26/ES6֮promise/</id>
     <published>2018-02-26T09:41:25.000Z</published>
     <updated>2018-03-19T06:07:31.609Z</updated>
     
@@ -199,17 +199,17 @@
     
     </summary>
     
-      <category term="默认分类" scheme="https://kitions.github.io/categories/%E9%BB%98%E8%AE%A4%E5%88%86%E7%B1%BB/"/>
+      <category term="默认分类" scheme="http://link01.top/categories/%E9%BB%98%E8%AE%A4%E5%88%86%E7%B1%BB/"/>
     
     
-      <category term="ES6" scheme="https://kitions.github.io/tags/ES6/"/>
+      <category term="ES6" scheme="http://link01.top/tags/ES6/"/>
     
   </entry>
   
   <entry>
     <title>ES6之reduce (可数组对象的去重)</title>
-    <link href="https://kitions.github.io/2018/02/26/ES6%D6%AEreduce/"/>
-    <id>https://kitions.github.io/2018/02/26/ES6֮reduce/</id>
+    <link href="http://link01.top/2018/02/26/ES6%D6%AEreduce/"/>
+    <id>http://link01.top/2018/02/26/ES6֮reduce/</id>
     <published>2018-02-26T02:30:14.000Z</published>
     <updated>2018-02-26T02:30:14.000Z</updated>
     
@@ -221,17 +221,17 @@
     
     </summary>
     
-      <category term="默认分类" scheme="https://kitions.github.io/categories/%E9%BB%98%E8%AE%A4%E5%88%86%E7%B1%BB/"/>
+      <category term="默认分类" scheme="http://link01.top/categories/%E9%BB%98%E8%AE%A4%E5%88%86%E7%B1%BB/"/>
     
     
-      <category term="ES6" scheme="https://kitions.github.io/tags/ES6/"/>
+      <category term="ES6" scheme="http://link01.top/tags/ES6/"/>
     
   </entry>
   
   <entry>
     <title>angular上传图片</title>
-    <link href="https://kitions.github.io/2017/08/18/E%CC%81I%CC%88%C2%B4%C2%ABI%CC%81%C2%BC%C3%86%C2%AC/"/>
-    <id>https://kitions.github.io/2017/08/18/ÉÏ´«Í¼Æ¬/</id>
+    <link href="http://link01.top/2017/08/18/E%CC%81I%CC%88%C2%B4%C2%ABI%CC%81%C2%BC%C3%86%C2%AC/"/>
+    <id>http://link01.top/2017/08/18/ÉÏ´«Í¼Æ¬/</id>
     <published>2017-08-18T05:47:03.000Z</published>
     <updated>2017-08-18T05:47:03.000Z</updated>
     
@@ -243,19 +243,19 @@
     
     </summary>
     
-      <category term="默认分类" scheme="https://kitions.github.io/categories/%E9%BB%98%E8%AE%A4%E5%88%86%E7%B1%BB/"/>
+      <category term="默认分类" scheme="http://link01.top/categories/%E9%BB%98%E8%AE%A4%E5%88%86%E7%B1%BB/"/>
     
     
-      <category term="angular" scheme="https://kitions.github.io/tags/angular/"/>
+      <category term="angular" scheme="http://link01.top/tags/angular/"/>
     
-      <category term="upload" scheme="https://kitions.github.io/tags/upload/"/>
+      <category term="upload" scheme="http://link01.top/tags/upload/"/>
     
   </entry>
   
   <entry>
     <title>article title</title>
-    <link href="https://kitions.github.io/2017/08/18/article-title/"/>
-    <id>https://kitions.github.io/2017/08/18/article-title/</id>
+    <link href="http://link01.top/2017/08/18/article-title/"/>
+    <id>http://link01.top/2017/08/18/article-title/</id>
     <published>2017-08-18T05:05:26.000Z</published>
     <updated>2017-08-18T05:05:26.000Z</updated>
     
@@ -268,8 +268,8 @@
   
   <entry>
     <title>常用一些方法</title>
-    <link href="https://kitions.github.io/2017/08/18/%E5%B8%B8%E7%94%A8%E4%B8%80%E4%BA%9B%E6%96%B9%E6%B3%95/"/>
-    <id>https://kitions.github.io/2017/08/18/常用一些方法/</id>
+    <link href="http://link01.top/2017/08/18/%E5%B8%B8%E7%94%A8%E4%B8%80%E4%BA%9B%E6%96%B9%E6%B3%95/"/>
+    <id>http://link01.top/2017/08/18/常用一些方法/</id>
     <published>2017-08-18T05:05:26.000Z</published>
     <updated>2018-05-09T08:58:09.737Z</updated>
     
@@ -281,15 +281,15 @@
     
     </summary>
     
-      <category term="默认分类" scheme="https://kitions.github.io/categories/%E9%BB%98%E8%AE%A4%E5%88%86%E7%B1%BB/"/>
+      <category term="默认分类" scheme="http://link01.top/categories/%E9%BB%98%E8%AE%A4%E5%88%86%E7%B1%BB/"/>
     
     
   </entry>
   
   <entry>
     <title>Hello World</title>
-    <link href="https://kitions.github.io/2017/08/18/hello-world/"/>
-    <id>https://kitions.github.io/2017/08/18/hello-world/</id>
+    <link href="http://link01.top/2017/08/18/hello-world/"/>
+    <id>http://link01.top/2017/08/18/hello-world/</id>
     <published>2017-08-18T04:56:09.000Z</published>
     <updated>2017-08-18T04:56:09.000Z</updated>
     
