@@ -418,11 +418,11 @@
 </li>
 </ol>
 <pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">angular.module(&apos;personalZhaoPin&apos;,[&apos;ngFileUpload&apos;]);</span><br></pre></td></tr></table></figure>
-</code></pre><ol>
+</code></pre><ol start="4">
 <li>前端页面</li>
 </ol>
 <pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;img ngf-src=&quot;data.file || data.defaultImage&quot; class=&quot;img-responsive&quot;/&gt;</span><br><span class="line">&lt;div class=&quot;button&quot; ngf-select=&quot;&quot; ngf-pattern=&quot;&apos;image/*&apos;&quot; ngf-multiple=&quot;false&quot; ng-model=&quot;data.file&quot;&gt;</span><br><span class="line">选择文件</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">&lt;button ng-click=&quot;upload()&quot;&gt;upload&lt;/button&gt;</span><br></pre></td></tr></table></figure>
-</code></pre><ol>
+</code></pre><ol start="5">
 <li>控制器代码</li>
 </ol>
 <pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">$scope.data = &#123;</span><br><span class="line">    file: null</span><br><span class="line">&#125;;</span><br><span class="line">$scope.upload = function () &#123;</span><br><span class="line">    if (!$scope.data.file) &#123;</span><br><span class="line">        return;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    var url = $scope.params.url;  //params是model传的参数，图片上传接口的url</span><br><span class="line">    var data = angular.copy($scope.params.data || &#123;&#125;); // 接口需要的额外参数，比如指定所上传的图片属于哪个用户: &#123; UserId: 78 &#125;</span><br><span class="line">    data.file = $scope.data.file;</span><br><span class="line"></span><br><span class="line">    Upload.upload(&#123;</span><br><span class="line">        url: url,</span><br><span class="line">        data: data</span><br><span class="line">    &#125;).success(function (data) &#123;</span><br><span class="line">        $scope.hide(data);</span><br><span class="line">    &#125;).error(function () &#123;</span><br><span class="line">        logger.log(&apos;error&apos;);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
@@ -506,8 +506,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/08/18/常用一些方法/" rel="next" title="常用一些方法">
-                <i class="fa fa-chevron-left"></i> 常用一些方法
+              <a href="/2017/08/18/article-title/" rel="next" title="article title">
+                <i class="fa fa-chevron-left"></i> article title
               </a>
             
           </div>
