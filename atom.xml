@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://link01.top/"/>
-  <updated>2018-08-10T01:57:16.000Z</updated>
+  <updated>2018-08-10T02:23:41.000Z</updated>
   <id>http://link01.top/</id>
   
   <author>
@@ -17,22 +17,39 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>数组根据某项分组</title>
+    <link href="http://link01.top/2018/08/10/%E6%95%B0%E7%BB%84%E6%A0%B9%E6%8D%AE%E6%9F%90%E9%A1%B9%E5%88%86%E7%BB%84/"/>
+    <id>http://link01.top/2018/08/10/数组根据某项分组/</id>
+    <published>2018-08-10T02:20:37.000Z</published>
+    <updated>2018-08-10T02:23:41.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>一个数组中，每个数组对象有个公有属性，按照这个属性对数组进行分组（业务中遇到）。</p><p><img src="https://ws2.sinaimg.cn/large/006tNbRwgy1fu4dvrb6i6j30l80g3tdm.jpg" alt="后端返回数组"></p><p>将此数组按照category_name将数组分组，得到的数据结构方便我们渲染。</p><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// js中方法</span></span><br><span class="line">groupData = data.data.infos;</span><br><span class="line">              <span class="keyword">let</span> map = &#123;&#125;,</span><br><span class="line">                  groupItems = [];</span><br><span class="line">              <span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; groupData.length; i++)&#123;</span><br><span class="line">                  <span class="keyword">let</span> items = groupData[i];</span><br><span class="line">                  items.label=items.name;</span><br><span class="line">                  items.value=items.id;</span><br><span class="line">                  items.checked=<span class="literal">false</span>;</span><br><span class="line">                  <span class="keyword">if</span>(!map[items.category_name])&#123;</span><br><span class="line">                      groupItems.push(&#123;</span><br><span class="line">                          indeterminate:<span class="literal">null</span>,  <span class="comment">//样式需要</span></span><br><span class="line">                          checked:<span class="literal">false</span>,  </span><br><span class="line">                          name: items.category_name,</span><br><span class="line">                          data: [items]</span><br><span class="line">                      &#125;);</span><br><span class="line">                      map[items.category_name] = items;</span><br><span class="line">                  &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                      <span class="keyword">for</span>(<span class="keyword">let</span> j = <span class="number">0</span>; j &lt; groupItems.length; j++)&#123;</span><br><span class="line">                          <span class="keyword">let</span> s = groupItems[j];</span><br><span class="line">                          <span class="keyword">if</span>(s.name == items.category_name)&#123;</span><br><span class="line">                              s.data.push(items);</span><br><span class="line">                              <span class="keyword">break</span>;</span><br><span class="line">                          &#125;</span><br><span class="line">                      &#125;</span><br><span class="line">                  &#125;</span><br><span class="line">              &#125;</span><br><span class="line">              <span class="keyword">this</span>.groupItems = groupItems;</span><br></pre></td></tr></table></figure><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">&lt;!-- html-angular-antd-渲染  --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> *<span class="attr">ngFor</span>=<span class="string">"let item of groupItems;let idx=index"</span> &gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">"background-color: white;margin: 10px 0;padding: 10px;"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">"border-bottom: 1px solid rgb(233, 233, 233);"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">label</span> <span class="attr">nz-checkbox</span> [(<span class="attr">ngModel</span>)]=<span class="string">"item.checked"</span> (<span class="attr">ngModelChange</span>)=<span class="string">"updateAllChecked(idx)"</span> [(<span class="attr">nzIndeterminate</span>)]=<span class="string">"item.indeterminate"</span> <span class="attr">style</span>=<span class="string">"font-weight: 600"</span>&gt;</span></span><br><span class="line">                &#123;&#123;item.name ? item.name : '其它'&#125;&#125;</span><br><span class="line">            <span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span>                      </span><br><span class="line">        <span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">nz-checkbox-group</span> <span class="attr">class</span>=<span class="string">"input-demo"</span> [(<span class="attr">ngModel</span>)]=<span class="string">"item.data"</span> (<span class="attr">ngModelChange</span>)=<span class="string">"updateSingleChecked(idx)"</span>&gt;</span><span class="tag">&lt;/<span class="name">nz-checkbox-group</span>&gt;</span> </span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure><p>业务需要实现单选，全选checkbox</p><p><img src="https://ws3.sinaimg.cn/large/006tNbRwgy1fu4e2cpz0aj30j90k1wg9.jpg" alt=""></p>]]></content>
+    
+    <summary type="html">
+    
+      一个数组中，每个数组对象有个公有属性，按照这个属性对数组进行分组，业务需要实现单选，全选checkbox。
+    
+    </summary>
+    
+      <category term="默认分类" scheme="http://link01.top/categories/%E9%BB%98%E8%AE%A4%E5%88%86%E7%B1%BB/"/>
+    
+    
+      <category term="数组" scheme="http://link01.top/tags/%E6%95%B0%E7%BB%84/"/>
+    
+  </entry>
+  
+  <entry>
     <title>css-GPU加速</title>
     <link href="http://link01.top/2018/08/07/css-GPU%E5%8A%A0%E9%80%9F/"/>
     <id>http://link01.top/2018/08/07/css-GPU加速/</id>
     <published>2018-08-07T08:31:13.000Z</published>
-    <updated>2018-08-10T01:57:16.000Z</updated>
+    <updated>2018-08-10T02:04:15.000Z</updated>
     
     <content type="html"><![CDATA[<p>我们可以在浏览器中用css开启硬件加速，使GPU (Graphics Processing Unit) 发挥功能，从而提升性能吗？</p><p>现在大多数电脑的显卡都支持硬件加速。鉴于此，我们可以发挥GPU的力量，从而使我们的网站或应用表现的更为流畅。</p><h3 id="在桌面端和移动端用CSS开启硬件加速"><a href="#在桌面端和移动端用CSS开启硬件加速" class="headerlink" title="在桌面端和移动端用CSS开启硬件加速"></a>在桌面端和移动端用CSS开启硬件加速</h3><p>CSS animations, transforms 以及 transitions 不会自动开启GPU加速，而是由浏览器的缓慢的软件渲染引擎来执行。那我们怎样才可以切换到GPU模式呢，很多浏览器提供了某些触发的CSS规则。</p><p>现在，像Chrome, FireFox, Safari, IE9+和最新版本的Opera都支持硬件加速，当它们检测到页面中某个DOM元素应用了某些CSS规则时就会开启，最显著的特征的元素的3D变换。</p><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.cube</span> &#123;</span><br><span class="line">   <span class="attribute">-webkit-transform</span>: <span class="built_in">translate3d</span>(250px,250px,250px)</span><br><span class="line">   <span class="built_in">rotate3d</span>(250px,250px,250px,-120deg)</span><br><span class="line">   <span class="built_in">scale3d</span>(0.5, 0.5, 0.5);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>可是在一些情况下，我们并不需要对元素应用3D变换的效果，那怎么办呢？这时候我们可以使用个小技巧“欺骗”浏览器来开启硬件加速。</p><p>虽然我们可能不想对元素应用3D变换，可我们一样可以开启3D引擎。例如我们可以用transform: translateZ(0); 来开启硬件加速 。</p><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.cube</span> &#123;</span><br><span class="line">   <span class="attribute">-webkit-transform</span>: <span class="built_in">translateZ</span>(0);</span><br><span class="line">   <span class="attribute">-moz-transform</span>: <span class="built_in">translateZ</span>(0);</span><br><span class="line">   <span class="attribute">-ms-transform</span>: <span class="built_in">translateZ</span>(0);</span><br><span class="line">   <span class="attribute">-o-transform</span>: <span class="built_in">translateZ</span>(0);</span><br><span class="line">   <span class="attribute">transform</span>: <span class="built_in">translateZ</span>(0);</span><br><span class="line">   <span class="comment">/* Other transform properties here */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>在 Chrome and Safari中，当我们使用CSS transforms 或者 animations时可能会有页面闪烁的效果，下面的代码可以修复此情况：</p><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.cube</span> &#123;</span><br><span class="line">   <span class="attribute">-webkit-backface-visibility</span>: hidden;</span><br><span class="line">   <span class="attribute">-moz-backface-visibility</span>: hidden;</span><br><span class="line">   <span class="attribute">-ms-backface-visibility</span>: hidden;</span><br><span class="line">   <span class="attribute">backface-visibility</span>: hidden;</span><br><span class="line"> </span><br><span class="line">   <span class="attribute">-webkit-perspective</span>: <span class="number">1000</span>;</span><br><span class="line">   <span class="attribute">-moz-perspective</span>: <span class="number">1000</span>;</span><br><span class="line">   <span class="attribute">-ms-perspective</span>: <span class="number">1000</span>;</span><br><span class="line">   <span class="attribute">perspective</span>: <span class="number">1000</span>;</span><br><span class="line">   <span class="comment">/* Other transform properties here */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>在webkit内核的浏览器中，另一个行之有效的方法是</p><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.cube</span> &#123;</span><br><span class="line">   <span class="attribute">-webkit-transform</span>: <span class="built_in">translate3d</span>(0, 0, 0);</span><br><span class="line">   <span class="attribute">-moz-transform</span>: <span class="built_in">translate3d</span>(0, 0, 0);</span><br><span class="line">   <span class="attribute">-ms-transform</span>: <span class="built_in">translate3d</span>(0, 0, 0);</span><br><span class="line">   <span class="attribute">transform</span>: <span class="built_in">translate3d</span>(0, 0, 0);</span><br><span class="line">  <span class="comment">/* Other transform properties here */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>原生的移动端应用(Native mobile applications)总是可以很好的运用GPU，这是为什么它比网页应用(Web apps)表现更好的原因。硬件加速在移动端尤其有用，因为它可以有效的减少资源的利用(麦时注：移动端本身资源有限)。</p><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>只对我们需要实现动画效果的元素应用以上方法，如果仅仅为了开启硬件加速而随便乱用，那是不明智的。</p><p>小心使用这些方法，如果通过你的测试，结果确是提高了性能，你才可以使用这些方法。使用GPU可能会导致严重的性能问题，因为它增加了内存的使用，而且它会减少移动端设备的电池寿命。</p><p>原文地址：<a href="http://blog.teamtreehouse.com/increase-your-sites-performance-with-hardware-accelerated-css" target="_blank" rel="noopener">http://blog.teamtreehouse.com/increase-your-sites-performance-with-hardware-accelerated-css</a>。</p>]]></content>
     
     <summary type="html">
     
-      
-      
-        &lt;p&gt;我们可以在浏览器中用css开启硬件加速，使GPU (Graphics Processing Unit) 发挥功能，从而提升性能吗？&lt;/p&gt;
-&lt;p&gt;现在大多数电脑的显卡都支持硬件加速。鉴于此，我们可以发挥GPU的力量，从而使我们的网站或应用表现的更为流畅。&lt;/p&gt;
-&lt;h3 i
-      
+      主要使用transform3D开启，浏览器开启硬件加速在移动端性能提升明显，如果仅仅为了开启硬件加速而随便乱用，那是不明智的。小心使用这些方法，如果通过你的测试，结果确是提高了性能，你才可以使用这些方法。使用GPU可能会导致严重的性能问题，因为它增加了内存的使用，而且它会减少移动端设备的电池寿命。
     
     </summary>
     
@@ -40,28 +57,6 @@
     
     
       <category term="css" scheme="http://link01.top/tags/css/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>go接口、指针</title>
-    <link href="http://link01.top/2018/07/05/go%20%E6%8E%A5%E5%8F%A3%E6%8C%87%E9%92%88/"/>
-    <id>http://link01.top/2018/07/05/go 接口指针/</id>
-    <published>2018-07-05T02:29:12.000Z</published>
-    <updated>2018-07-17T07:24:32.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>go 接口</p><ul><li>通过考虑数据类型之间的相同功能来创建抽象，而不是相同字段</li><li><code>interface{}</code> 的值不是任意类型，而是 <code>interface{}</code> 类型</li><li>接口包含两个字的大小，类似于 <code>(type, value)</code> </li><li><p>函数可以接受 <code>interface{}</code> 作为参数，但最好不要返回 <code>interface{}</code> </p></li><li><p>指针类型可以调用其所指向的值的方法，反过来不可以</p></li><li><p>函数中的参数甚至接受者都是通过值传递</p></li><li><p>一个接口的值就是就是接口而已，跟指针没什么关系</p></li><li><p>如果你想在方法中修改指针所指向的值，使用 <code>*</code> 操作符</p></li></ul><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"><span class="keyword">type</span> LessAdder <span class="keyword">interface</span> &#123;</span><br><span class="line">    Less(INTEGER) <span class="keyword">bool</span></span><br><span class="line">    Add(INTEGER)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">type</span> INTEGER <span class="keyword">int</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(a INTEGER)</span> <span class="title">Less</span><span class="params">(b INTEGER)</span> <span class="title">bool</span></span> &#123;</span><br><span class="line">    <span class="keyword">return</span> a &lt; b</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(a *INTEGER)</span> <span class="title">Add</span><span class="params">(b INTEGER)</span></span> &#123; </span><br><span class="line">    fmt.Println(*a)   <span class="comment">//10</span></span><br><span class="line">    fmt.Println(b)  <span class="comment">// 40</span></span><br><span class="line">    *a += b</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">var</span> a INTEGER = <span class="number">10</span></span><br><span class="line">    <span class="keyword">var</span> b LessAdder = &amp;a</span><br><span class="line">    </span><br><span class="line">    fmt.Println(b.Less(<span class="number">20</span>)) <span class="comment">//true 等价于a.Less(20)</span></span><br><span class="line">    b.Add(<span class="number">40</span>)</span><br><span class="line">    fmt.Println(a) <span class="comment">//50</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line"><span class="string">"fmt"</span></span><br><span class="line"><span class="string">"math"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Vertex <span class="keyword">struct</span> &#123;</span><br><span class="line">X, Y <span class="keyword">float64</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(v Vertex)</span> <span class="title">Abs</span><span class="params">()</span> <span class="title">float64</span></span> &#123;</span><br><span class="line"><span class="keyword">return</span> math.Sqrt(v.X*v.X + v.Y*v.Y)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(v *Vertex)</span> <span class="title">Scale</span><span class="params">(f <span class="keyword">float64</span>)</span></span> &#123;</span><br><span class="line">v.X = v.X * f</span><br><span class="line">v.Y = v.Y * f</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">v := Vertex&#123;<span class="number">3</span>, <span class="number">4</span>&#125;</span><br><span class="line">v.Scale(<span class="number">10</span>)   <span class="comment">//去掉这一行 5</span></span><br><span class="line">fmt.Println(v.Abs())   <span class="comment">//50</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p><a href="https://tour.golang.org/methods/6" target="_blank" rel="noopener">https://tour.golang.org/methods/6</a></p>]]></content>
-    
-    <summary type="html">
-    
-      如果你想在方法中修改指针所指向的值，使用 * 操作符
-    
-    </summary>
-    
-      <category term="默认分类" scheme="http://link01.top/categories/%E9%BB%98%E8%AE%A4%E5%88%86%E7%B1%BB/"/>
-    
-    
-      <category term="go" scheme="http://link01.top/tags/go/"/>
     
   </entry>
   
@@ -77,6 +72,28 @@
     <summary type="html">
     
       fmt类似于c中的printf和scanf
+    
+    </summary>
+    
+      <category term="默认分类" scheme="http://link01.top/categories/%E9%BB%98%E8%AE%A4%E5%88%86%E7%B1%BB/"/>
+    
+    
+      <category term="go" scheme="http://link01.top/tags/go/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>go接口、指针</title>
+    <link href="http://link01.top/2018/07/05/go%20%E6%8E%A5%E5%8F%A3%E6%8C%87%E9%92%88/"/>
+    <id>http://link01.top/2018/07/05/go 接口指针/</id>
+    <published>2018-07-05T02:29:12.000Z</published>
+    <updated>2018-07-17T07:24:32.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>go 接口</p><ul><li>通过考虑数据类型之间的相同功能来创建抽象，而不是相同字段</li><li><code>interface{}</code> 的值不是任意类型，而是 <code>interface{}</code> 类型</li><li>接口包含两个字的大小，类似于 <code>(type, value)</code> </li><li><p>函数可以接受 <code>interface{}</code> 作为参数，但最好不要返回 <code>interface{}</code> </p></li><li><p>指针类型可以调用其所指向的值的方法，反过来不可以</p></li><li><p>函数中的参数甚至接受者都是通过值传递</p></li><li><p>一个接口的值就是就是接口而已，跟指针没什么关系</p></li><li><p>如果你想在方法中修改指针所指向的值，使用 <code>*</code> 操作符</p></li></ul><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"><span class="keyword">type</span> LessAdder <span class="keyword">interface</span> &#123;</span><br><span class="line">    Less(INTEGER) <span class="keyword">bool</span></span><br><span class="line">    Add(INTEGER)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">type</span> INTEGER <span class="keyword">int</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(a INTEGER)</span> <span class="title">Less</span><span class="params">(b INTEGER)</span> <span class="title">bool</span></span> &#123;</span><br><span class="line">    <span class="keyword">return</span> a &lt; b</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(a *INTEGER)</span> <span class="title">Add</span><span class="params">(b INTEGER)</span></span> &#123; </span><br><span class="line">    fmt.Println(*a)   <span class="comment">//10</span></span><br><span class="line">    fmt.Println(b)  <span class="comment">// 40</span></span><br><span class="line">    *a += b</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">var</span> a INTEGER = <span class="number">10</span></span><br><span class="line">    <span class="keyword">var</span> b LessAdder = &amp;a</span><br><span class="line">    </span><br><span class="line">    fmt.Println(b.Less(<span class="number">20</span>)) <span class="comment">//true 等价于a.Less(20)</span></span><br><span class="line">    b.Add(<span class="number">40</span>)</span><br><span class="line">    fmt.Println(a) <span class="comment">//50</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line"><span class="string">"fmt"</span></span><br><span class="line"><span class="string">"math"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Vertex <span class="keyword">struct</span> &#123;</span><br><span class="line">X, Y <span class="keyword">float64</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(v Vertex)</span> <span class="title">Abs</span><span class="params">()</span> <span class="title">float64</span></span> &#123;</span><br><span class="line"><span class="keyword">return</span> math.Sqrt(v.X*v.X + v.Y*v.Y)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(v *Vertex)</span> <span class="title">Scale</span><span class="params">(f <span class="keyword">float64</span>)</span></span> &#123;</span><br><span class="line">v.X = v.X * f</span><br><span class="line">v.Y = v.Y * f</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">v := Vertex&#123;<span class="number">3</span>, <span class="number">4</span>&#125;</span><br><span class="line">v.Scale(<span class="number">10</span>)   <span class="comment">//去掉这一行 5</span></span><br><span class="line">fmt.Println(v.Abs())   <span class="comment">//50</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p><a href="https://tour.golang.org/methods/6" target="_blank" rel="noopener">https://tour.golang.org/methods/6</a></p>]]></content>
+    
+    <summary type="html">
+    
+      如果你想在方法中修改指针所指向的值，使用 * 操作符
     
     </summary>
     
@@ -133,16 +150,16 @@
   
   <entry>
     <title>css-动画-PPT</title>
-    <link href="http://link01.top/2018/04/24/%E5%9C%A3%E6%9D%AF%E5%B8%83%E5%B1%80%E5%89%AF%E6%9C%AC/"/>
-    <id>http://link01.top/2018/04/24/圣杯布局副本/</id>
+    <link href="http://link01.top/2018/04/24/css-%E5%8A%A8%E7%94%BB-PPT/"/>
+    <id>http://link01.top/2018/04/24/css-动画-PPT/</id>
     <published>2018-04-24T01:46:04.000Z</published>
-    <updated>2018-08-10T02:01:00.000Z</updated>
+    <updated>2018-08-10T02:21:26.000Z</updated>
     
-    <content type="html"><![CDATA[<p><a href="https://slides.com/nsplknsplk/deck/live#/" target="_blank" rel="noopener">css动画简析-在线PPT</a></p>]]></content>
+    <content type="html"><![CDATA[<p>实为简陋</p><p><a href="https://slides.com/nsplknsplk/deck/live#/" target="_blank" rel="noopener">css动画简析-在线PPT</a></p>]]></content>
     
     <summary type="html">
     
-      网页版PPT，slides.com
+      网页版PPT，slides.com，
     
     </summary>
     
@@ -390,6 +407,20 @@
   </entry>
   
   <entry>
+    <title>article title</title>
+    <link href="http://link01.top/2017/08/18/article-title/"/>
+    <id>http://link01.top/2017/08/18/article-title/</id>
+    <published>2017-08-18T05:05:26.000Z</published>
+    <updated>2018-08-10T01:59:00.000Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
     <title>常用一些方法</title>
     <link href="http://link01.top/2017/08/18/%E5%B8%B8%E7%94%A8%E4%B8%80%E4%BA%9B%E6%96%B9%E6%B3%95/"/>
     <id>http://link01.top/2017/08/18/常用一些方法/</id>
@@ -405,41 +436,6 @@
     </summary>
     
       <category term="默认分类" scheme="http://link01.top/categories/%E9%BB%98%E8%AE%A4%E5%88%86%E7%B1%BB/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>article title</title>
-    <link href="http://link01.top/2017/08/18/article-title/"/>
-    <id>http://link01.top/2017/08/18/article-title/</id>
-    <published>2017-08-18T05:05:26.000Z</published>
-    <updated>2018-08-10T01:59:00.000Z</updated>
-    
-    <summary type="html">
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>Hello World</title>
-    <link href="http://link01.top/2017/08/18/hello-world/"/>
-    <id>http://link01.top/2017/08/18/hello-world/</id>
-    <published>2017-08-18T04:56:08.000Z</published>
-    <updated>2017-08-18T04:56:08.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.
-      
-    
-    </summary>
     
     
   </entry>
