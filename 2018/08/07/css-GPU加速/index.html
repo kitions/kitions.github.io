@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="ES6," />
+  <meta name="keywords" content="css," />
 
 
 
@@ -81,18 +81,18 @@
 
 
 
-<meta name="description" content="ES6之promise，promise对象是一个构造函数，用来生成Promise实例">
-<meta name="keywords" content="ES6">
+<meta name="description" content="我们可以在浏览器中用css开启硬件加速，使GPU (Graphics Processing Unit) 发挥功能，从而提升性能吗？ 现在大多数电脑的显卡都支持硬件加速。鉴于此，我们可以发挥GPU的力量，从而使我们的网站或应用表现的更为流畅。 在桌面端和移动端用CSS开启硬件加速CSS animations, transforms 以及 transitions 不会自动开启GPU加速，而是由浏览器的">
+<meta name="keywords" content="css">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ES6之promise">
-<meta property="og:url" content="http://link01.top/2018/02/26/ES6֮promise/index.html">
+<meta property="og:title" content="css-GPU加速">
+<meta property="og:url" content="http://link01.top/2018/08/07/css-GPU加速/index.html">
 <meta property="og:site_name" content="Filip">
-<meta property="og:description" content="ES6之promise，promise对象是一个构造函数，用来生成Promise实例">
+<meta property="og:description" content="我们可以在浏览器中用css开启硬件加速，使GPU (Graphics Processing Unit) 发挥功能，从而提升性能吗？ 现在大多数电脑的显卡都支持硬件加速。鉴于此，我们可以发挥GPU的力量，从而使我们的网站或应用表现的更为流畅。 在桌面端和移动端用CSS开启硬件加速CSS animations, transforms 以及 transitions 不会自动开启GPU加速，而是由浏览器的">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-03-19T06:07:30.000Z">
+<meta property="og:updated_time" content="2018-08-10T01:57:16.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ES6之promise">
-<meta name="twitter:description" content="ES6之promise，promise对象是一个构造函数，用来生成Promise实例">
+<meta name="twitter:title" content="css-GPU加速">
+<meta name="twitter:description" content="我们可以在浏览器中用css开启硬件加速，使GPU (Graphics Processing Unit) 发挥功能，从而提升性能吗？ 现在大多数电脑的显卡都支持硬件加速。鉴于此，我们可以发挥GPU的力量，从而使我们的网站或应用表现的更为流畅。 在桌面端和移动端用CSS开启硬件加速CSS animations, transforms 以及 transitions 不会自动开启GPU加速，而是由浏览器的">
 
 
 
@@ -122,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="http://link01.top/2018/02/26/ES6֮promise/"/>
+  <link rel="canonical" href="http://link01.top/2018/08/07/css-GPU加速/"/>
 
 
 
 
 
-  <title>ES6之promise | Filip</title>
+  <title>css-GPU加速 | Filip</title>
   
 
 
@@ -303,7 +303,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://link01.top/2018/02/26/ES6֮promise/">
+    <link itemprop="mainEntityOfPage" href="http://link01.top/2018/08/07/css-GPU加速/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="link">
@@ -320,7 +320,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">ES6之promise</h1>
+          <h1 class="post-title" itemprop="name headline">css-GPU加速</h1>
         
 
         <div class="post-meta">
@@ -332,8 +332,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-26T17:41:24+08:00">
-                2018-02-26
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-07T16:31:13+08:00">
+                2018-08-07
               </time>
             
 
@@ -372,7 +372,7 @@
 
           
           
-             <span id="/2018/02/26/ES6֮promise/" class="leancloud_visitors" data-flag-title="ES6之promise">
+             <span id="/2018/08/07/css-GPU加速/" class="leancloud_visitors" data-flag-title="css-GPU加速">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -389,10 +389,6 @@
           
 
           
-              <div class="post-description">
-                  ES6之promise，promise对象是一个构造函数，用来生成Promise实例
-              </div>
-          
 
         </div>
       </header>
@@ -407,23 +403,22 @@
       
 
       
-        <p><code>Promise</code>构造函数接受一个函数作为参数，该函数的两个参数分别是<code>resolve</code>和<code>reject</code>  </p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> promise = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve, reject</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// ... some code</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (<span class="comment">/* 异步操作成功 */</span>)&#123;</span><br><span class="line">    resolve(value);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    reject(error);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">//Promise实例生成以后，可以用then方法分别指定resolved状态和rejected状态的回调函数。</span></span><br><span class="line">promise.then(<span class="function"><span class="keyword">function</span>(<span class="params">value</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// success</span></span><br><span class="line">&#125;, <span class="function"><span class="keyword">function</span>(<span class="params">error</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// failure</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<p><code>resolve</code>函数的作用是，将<code>Promise</code>对象的状态从“未完成”变为“成功”（即从 pending 变为 resolved），在异步操作成功时调用，并将异步操作的结果，作为参数传递出去；<code>reject</code>函数的作用是，将<code>Promise</code>对象的状态从“未完成”变为“失败”（即从 pending 变为 rejected），在异步操作失败时调用，并将异步操作报出的错误，作为参数传递出去。</p>
-<p>例1：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">let promise = new Promise(function(resolve, reject) &#123;</span><br><span class="line">  console.log(&apos;Promise&apos;);</span><br><span class="line">  resolve();</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">promise.then(function() &#123;</span><br><span class="line">  console.log(&apos;resolved.&apos;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">console.log(&apos;Hi!&apos;);</span><br><span class="line"></span><br><span class="line">// Promise</span><br><span class="line">// Hi!</span><br><span class="line">// resolved</span><br></pre></td></tr></table></figure>
-<h6 id="promise代替回调函数的优缺点"><a href="#promise代替回调函数的优缺点" class="headerlink" title="promise代替回调函数的优缺点"></a>promise代替回调函数的优缺点</h6><p>优点：</p>
-<ul>
-<li>避免可读性极差的回调地狱</li>
-<li>使用<code>.then()</code>编写的顺序异步代码，简单易读</li>
-<li>使用<code>Promise.all()</code>编写并行异步代码变容易</li>
-</ul>
-<ul>
-<li>使得原本的多层级的嵌套代码，变成了链式调用</li>
-<li>让代码更清晰，减少嵌套数<br>​</li>
-</ul>
-<h6 id="promise执行顺序（settimeout、asnyc）"><a href="#promise执行顺序（settimeout、asnyc）" class="headerlink" title="promise执行顺序（settimeout、asnyc）"></a>promise执行顺序（settimeout、asnyc）</h6><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> <span class="built_in">console</span>.log(<span class="string">'a'</span>), <span class="number">0</span>);</span><br><span class="line"><span class="keyword">var</span> p = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'b'</span>);</span><br><span class="line">  resolve();</span><br><span class="line">&#125;);</span><br><span class="line">p.then(<span class="function"><span class="params">()</span> =&gt;</span> <span class="built_in">console</span>.log(<span class="string">'c'</span>));</span><br><span class="line">p.then(<span class="function"><span class="params">()</span> =&gt;</span> <span class="built_in">console</span>.log(<span class="string">'d'</span>));</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'e'</span>);</span><br><span class="line"><span class="comment">// 结果：b e c d a</span></span><br><span class="line"><span class="comment">// 任务队列优先级：promise.Trick()&gt;promise的回调&gt;setTimeout&gt;setImmediate</span></span><br><span class="line"><span class="comment">// 先执行同步代码，遇到异步代码就先加入队列，然后按入队的顺序执行异步代码，最后执行setTimeout队列的代码。</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">async1</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"a"</span>);</span><br><span class="line">    <span class="keyword">await</span>  async2(); <span class="comment">//执行这一句后，await会让出当前线程，将后面的代码加到任务队列中，然后继续执行函数后面的同步代码</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"b"</span>);</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">async2</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">   <span class="built_in">console</span>.log( <span class="string">'c'</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"d"</span>);</span><br><span class="line">setTimeout(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"e"</span>);</span><br><span class="line">&#125;,<span class="number">0</span>);</span><br><span class="line">async1();</span><br><span class="line"><span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span> (<span class="params">resolve</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"f"</span>);</span><br><span class="line">    resolve();</span><br><span class="line">&#125;).then(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"g"</span>);</span><br><span class="line">&#125;);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'h'</span>);</span><br><span class="line"><span class="comment">// 谁知道为啥结果不一样？？？？？？？？？？？？？  </span></span><br><span class="line"><span class="comment">// 直接在控制台中运行结果：      d a c f h g b e</span></span><br><span class="line"><span class="comment">// 在页面的script标签中运行结果：d a c f h b g e</span></span><br><span class="line"><span class="comment">// 我也不知道为什么不一样！</span></span><br></pre></td></tr></table></figure>
+        <p>我们可以在浏览器中用css开启硬件加速，使GPU (Graphics Processing Unit) 发挥功能，从而提升性能吗？</p>
+<p>现在大多数电脑的显卡都支持硬件加速。鉴于此，我们可以发挥GPU的力量，从而使我们的网站或应用表现的更为流畅。</p>
+<h3 id="在桌面端和移动端用CSS开启硬件加速"><a href="#在桌面端和移动端用CSS开启硬件加速" class="headerlink" title="在桌面端和移动端用CSS开启硬件加速"></a>在桌面端和移动端用CSS开启硬件加速</h3><p>CSS animations, transforms 以及 transitions 不会自动开启GPU加速，而是由浏览器的缓慢的软件渲染引擎来执行。那我们怎样才可以切换到GPU模式呢，很多浏览器提供了某些触发的CSS规则。</p>
+<p>现在，像Chrome, FireFox, Safari, IE9+和最新版本的Opera都支持硬件加速，当它们检测到页面中某个DOM元素应用了某些CSS规则时就会开启，最显著的特征的元素的3D变换。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.cube</span> &#123;</span><br><span class="line">   <span class="attribute">-webkit-transform</span>: <span class="built_in">translate3d</span>(250px,250px,250px)</span><br><span class="line">   <span class="built_in">rotate3d</span>(250px,250px,250px,-120deg)</span><br><span class="line">   <span class="built_in">scale3d</span>(0.5, 0.5, 0.5);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可是在一些情况下，我们并不需要对元素应用3D变换的效果，那怎么办呢？这时候我们可以使用个小技巧“欺骗”浏览器来开启硬件加速。</p>
+<p>虽然我们可能不想对元素应用3D变换，可我们一样可以开启3D引擎。例如我们可以用transform: translateZ(0); 来开启硬件加速 。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.cube</span> &#123;</span><br><span class="line">   <span class="attribute">-webkit-transform</span>: <span class="built_in">translateZ</span>(0);</span><br><span class="line">   <span class="attribute">-moz-transform</span>: <span class="built_in">translateZ</span>(0);</span><br><span class="line">   <span class="attribute">-ms-transform</span>: <span class="built_in">translateZ</span>(0);</span><br><span class="line">   <span class="attribute">-o-transform</span>: <span class="built_in">translateZ</span>(0);</span><br><span class="line">   <span class="attribute">transform</span>: <span class="built_in">translateZ</span>(0);</span><br><span class="line">   <span class="comment">/* Other transform properties here */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在 Chrome and Safari中，当我们使用CSS transforms 或者 animations时可能会有页面闪烁的效果，下面的代码可以修复此情况：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.cube</span> &#123;</span><br><span class="line">   <span class="attribute">-webkit-backface-visibility</span>: hidden;</span><br><span class="line">   <span class="attribute">-moz-backface-visibility</span>: hidden;</span><br><span class="line">   <span class="attribute">-ms-backface-visibility</span>: hidden;</span><br><span class="line">   <span class="attribute">backface-visibility</span>: hidden;</span><br><span class="line"> </span><br><span class="line">   <span class="attribute">-webkit-perspective</span>: <span class="number">1000</span>;</span><br><span class="line">   <span class="attribute">-moz-perspective</span>: <span class="number">1000</span>;</span><br><span class="line">   <span class="attribute">-ms-perspective</span>: <span class="number">1000</span>;</span><br><span class="line">   <span class="attribute">perspective</span>: <span class="number">1000</span>;</span><br><span class="line">   <span class="comment">/* Other transform properties here */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在webkit内核的浏览器中，另一个行之有效的方法是</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.cube</span> &#123;</span><br><span class="line">   <span class="attribute">-webkit-transform</span>: <span class="built_in">translate3d</span>(0, 0, 0);</span><br><span class="line">   <span class="attribute">-moz-transform</span>: <span class="built_in">translate3d</span>(0, 0, 0);</span><br><span class="line">   <span class="attribute">-ms-transform</span>: <span class="built_in">translate3d</span>(0, 0, 0);</span><br><span class="line">   <span class="attribute">transform</span>: <span class="built_in">translate3d</span>(0, 0, 0);</span><br><span class="line">  <span class="comment">/* Other transform properties here */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>原生的移动端应用(Native mobile applications)总是可以很好的运用GPU，这是为什么它比网页应用(Web apps)表现更好的原因。硬件加速在移动端尤其有用，因为它可以有效的减少资源的利用(麦时注：移动端本身资源有限)。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>只对我们需要实现动画效果的元素应用以上方法，如果仅仅为了开启硬件加速而随便乱用，那是不明智的。</p>
+<p>小心使用这些方法，如果通过你的测试，结果确是提高了性能，你才可以使用这些方法。使用GPU可能会导致严重的性能问题，因为它增加了内存的使用，而且它会减少移动端设备的电池寿命。</p>
+<p>原文地址：<a href="http://blog.teamtreehouse.com/increase-your-sites-performance-with-hardware-accelerated-css" target="_blank" rel="noopener">http://blog.teamtreehouse.com/increase-your-sites-performance-with-hardware-accelerated-css</a>。</p>
 
       
     </div>
@@ -470,7 +465,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/ES6/" rel="tag"># ES6</a>
+            <a href="/tags/css/" rel="tag"># css</a>
           
         </div>
       
@@ -483,8 +478,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/02/26/ES6֮reduce/" rel="next" title="ES6之reduce (可数组对象的去重)">
-                <i class="fa fa-chevron-left"></i> ES6之reduce (可数组对象的去重)
+              <a href="/2018/07/05/go 接口指针/" rel="next" title="go接口、指针">
+                <i class="fa fa-chevron-left"></i> go接口、指针
               </a>
             
           </div>
@@ -492,10 +487,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/03/16/rgba和opacity/" rel="prev" title="rgba与opacity的区别">
-                rgba与opacity的区别 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -668,7 +659,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-6"><a class="nav-link" href="#promise代替回调函数的优缺点"><span class="nav-number">1.</span> <span class="nav-text">promise代替回调函数的优缺点</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#promise执行顺序（settimeout、asnyc）"><span class="nav-number">2.</span> <span class="nav-text">promise执行顺序（settimeout、asnyc）</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#在桌面端和移动端用CSS开启硬件加速"><span class="nav-number">1.</span> <span class="nav-text">在桌面端和移动端用CSS开启硬件加速</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">2.</span> <span class="nav-text">总结</span></a></li></ol></div>
             
 
           </div>
