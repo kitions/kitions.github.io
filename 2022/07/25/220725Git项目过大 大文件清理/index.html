@@ -1,0 +1,1065 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="git,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Filip" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="Git项目过大，.git历史大文件清理">
+<meta name="keywords" content="git">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Git项目过大，.git历史大文件清理">
+<meta property="og:url" content="https://kitions.github.io/2022/07/25/220725Git项目过大 大文件清理/index.html">
+<meta property="og:site_name" content="Filip">
+<meta property="og:description" content="Git项目过大，.git历史大文件清理">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2022-10-17T03:30:46.826Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Git项目过大，.git历史大文件清理">
+<meta name="twitter:description" content="Git项目过大，.git历史大文件清理">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: 'HYECV8YAZW',
+      apiKey: '8ba59849a179718d8a9c48e0b89c302e',
+      indexName: 'kition',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"输入关键字","hits_empty":"没有找到该相关内容: ${query}","hits_stats":"${hits} 条记录  耗时 ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://kitions.github.io/2022/07/25/220725Git项目过大 大文件清理/">
+
+
+
+
+
+  <title>Git项目过大，.git历史大文件清理 | Filip</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Filip</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description"></h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://kitions.github.io/2022/07/25/220725Git项目过大 大文件清理/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="link">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Filip">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">Git项目过大，.git历史大文件清理</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-07-25T17:25:57+08:00">
+                2022-07-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/默认分类/" itemprop="url" rel="index">
+                    <span itemprop="name">默认分类</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2022/07/25/220725Git项目过大 大文件清理/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2022/07/25/220725Git项目过大 大文件清理/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2022/07/25/220725Git项目过大 大文件清理/" class="leancloud_visitors" data-flag-title="Git项目过大，.git历史大文件清理">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+              <div class="post-description">
+                  Git项目过大，.git历史大文件清理
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Git项目过大，-git历史大文件清理"><a href="#Git项目过大，-git历史大文件清理" class="headerlink" title="Git项目过大，.git历史大文件清理"></a>Git项目过大，.git历史大文件清理</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git rev-list --objects --all | grep &quot;$(git verify-pack -v .git/objects/pack/*.idx | sort -k 3 -n | tail -5 | awk &apos;&#123;print$1&#125;&apos;)&quot;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><code>rev-list</code>命令用来列出Git仓库中的提交，我们用它来列出所有提交中涉及的文件名及其ID。 该命令可以指定只显示某个引用（或分支）的上下游的提交。</p>
+<p><code>--objects</code>：列出该提交涉及的所有文件ID。</p>
+<p><code>--all</code>：所有分支的提交，相当于指定了位于/refs下的所有引用。</p>
+<p><code>verify-pack</code>命令用于显示已打包的内容。</p>
+</blockquote>
+<h1 id="Function-1："><a href="#Function-1：" class="headerlink" title="Function  1："></a>Function  1：</h1><p>git如何永久删除历史文件（不小心提交的密码、build、 二进制等 均可以删除） 如果知道要删除的文件可使用如下命令（实际使用过程把build 替换成自己的文件路径， 我这里不保留cache到磁盘 ）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git filter-branch --force --index-filter &apos;git rm -rf --ignore-unmatch build&apos; --prune-empty --tag-name-filter cat -- --all</span><br></pre></td></tr></table></figure>
+<p>如果要保留文件到磁盘可使用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git filter-branch --force --index-filter &apos;git rm --cached -r --ignore-unmatch build&apos; --prune-empty --tag-name-filter cat -- --all</span><br></pre></td></tr></table></figure>
+<p>如果不知道要删除的文件是哪个导致仓库大可先查找大文件（也可以用bfg工具）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git rev-list --objects --all | grep &quot;$(git verify-pack -v .git/objects/pack/*.idx | sort -k 3 -n | tail -5 | awk &apos;&#123;print$1&#125;&apos;)&quot;</span><br></pre></td></tr></table></figure>
+<p>修改可能需要很久，完成后出现类似下面的提示就标示删除成功 Rewrite xxxx (266⁄266)</p>
+<h2 id="Ref-‘refs-heads-master’-was-rewritten"><a href="#Ref-‘refs-heads-master’-was-rewritten" class="headerlink" title="Ref ‘refs/heads/master’ was rewritten"></a>Ref ‘refs/heads/master’ was rewritten</h2><p>强制推送到remote git push origin master –force 接下来对git 仓库进行瘦身，命令如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">rm -rf .git/refs/original/</span><br><span class="line">git reflog expire --expire=now --all</span><br><span class="line">git gc --prune=now</span><br><span class="line">git gc --aggressive --prune=now</span><br></pre></td></tr></table></figure>
+<p>截止执行最关键的一步，也是最危险的一步（同步.git到远端），好多人说执行完上面的remote的仓库大小不变，重新克隆下来依然很大，其实是因为没有同步gc 后的仓库到远端，执行：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">**git push --mirror**</span><br></pre></td></tr></table></figure>
+<p>参考： </p>
+<p><a href="https://www.cnblogs.com/shines77/p/3460274.html" target="_blank" rel="noopener">Git如何永久删除文件(包括历史记录)</a><br><a href="https://docs.github.com/cn/free-pro-team@latest/github/managing-large-files/removing-files-from-a-repositorys-history" target="_blank" rel="noopener">从仓库的历史记录中删除文件</a><br><a href="http://palanceli.com/2017/12/18/2017/1218GitReduceSize/" target="_blank" rel="noopener">git瘦身</a><br><a href="https://blog.walterlv.com/git/2017/09/18/delete-a-file-from-whole-git-history.html" target="_blank" rel="noopener">彻底删除 Git 仓库中的文件避免占用大量磁盘空间</a><br><a href="https://rtyley.github.io/bfg-repo-cleaner/#usage" target="_blank" rel="noopener">BFG an alternative to git-filter-branch</a><br><a href="https://linux.cn/article-8556-1.html" target="_blank" rel="noopener">如何瘦身 Git 仓库</a><br><a href="http://iissnan.com/progit/about.html" target="_blank" rel="noopener">progit</a></p>
+<p><a href="https://itcn.blog/p/201079769.html" target="_blank" rel="noopener">Git仓库瘦身–清除项目git仓库大文件</a></p>
+<h1 id="Function-2："><a href="#Function-2：" class="headerlink" title="Function  2："></a>Function  2：</h1><p>Git如何永久删除文件(包括历史记录)<br> 有些时候不小心上传了一些敏感文件(例如密码)，或者不想上传的文件(没及时或忘了加到.gitignore里的)，而且上传的文件又特别大的时候, 这将导致别人clone你的代码或下载zip包的时候也必须更新或下载这些无用的文件，因此，有时需要一个方法，永久的删除这些文件(包括该文件的历史记录)。</p>
+<p>首先, 可以参考 github 的帮助:</p>
+<p><a href="https://help.github.com/articles/remove-sensitive-data" target="_blank" rel="noopener">https://help.github.com/articles/remove-sensitive-data</a></p>
+<p>步骤一: 从库中清除文件<br>以Windows下为例(Linux类似)，打开项目的Git Bash，使用命令：</p>
+<p>$ git filter-branch –force –index-filter ‘git rm –cached –ignore-unmatch path-to-your-remove-file’ –prune-empty –tag-name-filter cat – –all<br>其中，path-to-your-remove-file 就是你要删除的文件的相对路径(相对于git仓库的跟目录)，替换成你要删除的文件即可。 注意一点，这里的文件或文件夹，都不能以 ‘/‘ 开头，否则文件或文件夹会被认为是从 git 的安装目录开始。如果你要删除的目标不是文件，而是文件夹，那么请在 git rm –cached’ 命令后面添加 -r 命令，表示递归的删除（子）文件夹和文件夹下的文件，类似于 ‘rm -rf 命令。此外，如果你要删除的文件很多，可以写进一个.sh文件批量执行，如果文件或路径里有中文，由于MinGW或CygWin对中文路径设置比较麻烦，你可以使用通配符<em>号，例如：sound/music_</em>.mp3，这样就把sound目录下以music_开头的mp3文件都删除了。</p>
+<p>例如这样， 新建一个 bash 脚本文件，<a href="http://del.sh/" target="_blank" rel="noopener">del.sh</a>：</p>
+<p>#!/bin/bash</p>
+<p>git filter-branch –force –index-filter ‘git rm –cached –ignore-unmatch projects/Moon.mp3’ –prune-empty –tag-name-filter cat – –all<br>git filter-branch –force –index-filter ‘git rm –cached –ignore-unmatch sound/Music_*.mp3’ –prune-empty –tag-name-filter cat – –all<br>如果你看到类似下面这样的，就说明删除成功了：</p>
+<p>Rewrite 48dc599c80e20527ed902928085e7861e6b3cbe6 (266/266)<br># Ref ‘refs/heads/master’ was rewritten<br>如果显示 xxxxx unchanged， 说明repo里没有找到该文件, 请检查路径和文件名是否正确。</p>
+<p>注意： 补充一点，如果你想以后也不会再上传这个文件或文件夹， 请把这个文件或文件夹添加到.gitignore文件里，然后再push你的repo。</p>
+<p>步骤二: 推送我们修改后的repo<br>注意：下文以master分支为例，若其他分支也被rewritten了，则都需要专门push一次；若需要push的是保护分支，则必须先临时去除保护设置，等push之后再设置回来。</p>
+<p>以强制覆盖的方式推送你的repo，命令如下：</p>
+<p>$ git push origin master –force-with-lease<br>这个过程其实是重新上传我们的repo，比较耗时， 虽然跟删掉重新建一个repo有些类似，但是好处是保留了原有的更新记录，所以还是有些不同的。如果你实在不在意这些更新记录，也可以删掉重建，两者也差不太多，也许后者还更直观些。</p>
+<p>执行结果类似下面：</p>
+<p>Counting objects: 4669, done.<br>Delta compression using up to 4 threads.<br>Compressing objects: 100% (4352/4352), done.<br>Writing objects: 100% (4666/4666), 35.16 MiB | 51 KiB/s, done.<br>Total 4666 (delta 1361), reused 0 (delta 0)<br>To <a href="https://github.com/defunkt/github-gem.git" target="_blank" rel="noopener">https://github.com/defunkt/github-gem.git</a><br> + beb839d…81f21f3 master -&gt; master (forced update)<br>为了能从打了 tag 的版本中也删除你所指定的文件或文件夹，您可以使用这样的命令来强制推送您的 Git tags：</p>
+<p>$ git push origin master –force-with-lease –tags<br>步骤三: 清理和回收空间<br>虽然上面我们已经删除了文件，但是我们的repo里面仍然保留了这些objects， 等待垃圾回收(GC)，所以我们要用命令彻底清除它，并收回空间。</p>
+<p>命令如下：</p>
+<p>$ rm -rf .git/refs/original/</p>
+<p>$ git reflog expire –expire=now –all</p>
+<p>$ git gc –prune=now<br>Counting objects: 2437, done.<br># Delta compression using up to 4 threads.<br># Compressing objects: 100% (1378/1378), done.<br># Writing objects: 100% (2437/2437), done.<br># Total 2437 (delta 1461), reused 1802 (delta 1048)<br>$ git gc –aggressive –prune=now<br>Counting objects: 2437, done.<br># Delta compression using up to 4 threads.<br># Compressing objects: 100% (2426/2426), done.<br># Writing objects: 100% (2437/2437), done.<br># Total 2437 (delta 1483), reused 0 (delta 0)<br>注：注释部分是命令执行后的结果。</p>
+<p>现在你再看看你的.git目录文件大小是不是变小了。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>感谢你的打赏哦！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="link 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="link 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/git/" rel="tag"># git</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2022/07/15/220715Electron 打包下载包慢问题/" rel="next" title="Electron 打包下载包慢问题">
+                <i class="fa fa-chevron-left"></i> Electron 打包下载包慢问题
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2022/07/26/220726Git LFS大文件/" rel="prev" title="Git LFS大文件">
+                Git LFS大文件 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">link</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">59</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">35</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/kitions" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:nsplknsplk@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://plus.google.com/nsplknsplk" target="_blank" title="Google">
+                      
+                        <i class="fa fa-fw fa-google"></i>Google</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://weibo.com/your-user-name" target="_blank" title="微博">
+                      
+                        <i class="fa fa-fw fa-weibo"></i>微博</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://www.zhihu.com/people/your-user-name" target="_blank" title="知乎">
+                      
+                        <i class="fa fa-fw fa-zhihu"></i>知乎</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Git项目过大，-git历史大文件清理"><span class="nav-number">1.</span> <span class="nav-text">Git项目过大，.git历史大文件清理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Function-1："><span class="nav-number">2.</span> <span class="nav-text">Function  1：</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref-‘refs-heads-master’-was-rewritten"><span class="nav-number">2.1.</span> <span class="nav-text">Ref ‘refs/heads/master’ was rewritten</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Function-2："><span class="nav-number">3.</span> <span class="nav-text">Function  2：</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">link</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'ohCdgFTxBCqGAWc738RfOoS4-gzGzoHsz',
+        appKey: 'ePCpct3dlRSGr3dY2Og1UQSY',
+        placeholder: '来来来  输入你的评论吧',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.4"></script>
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("ohCdgFTxBCqGAWc738RfOoS4-gzGzoHsz", "ePCpct3dlRSGr3dY2Og1UQSY");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

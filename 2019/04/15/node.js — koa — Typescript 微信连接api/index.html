@@ -1,0 +1,1034 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="微信,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Filip" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="共4步骤，比较简单，用了memory-cache，后期需要定时任务">
+<meta name="keywords" content="微信">
+<meta property="og:type" content="article">
+<meta property="og:title" content="node.js — koa — Typescript 微信连接api">
+<meta property="og:url" content="https://kitions.github.io/2019/04/15/node.js — koa — Typescript 微信连接api/index.html">
+<meta property="og:site_name" content="Filip">
+<meta property="og:description" content="共4步骤，比较简单，用了memory-cache，后期需要定时任务">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2022-10-17T03:30:46.828Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="node.js — koa — Typescript 微信连接api">
+<meta name="twitter:description" content="共4步骤，比较简单，用了memory-cache，后期需要定时任务">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: 'HYECV8YAZW',
+      apiKey: '8ba59849a179718d8a9c48e0b89c302e',
+      indexName: 'kition',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"输入关键字","hits_empty":"没有找到该相关内容: ${query}","hits_stats":"${hits} 条记录  耗时 ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://kitions.github.io/2019/04/15/node.js — koa — Typescript 微信连接api/">
+
+
+
+
+
+  <title>node.js — koa — Typescript 微信连接api | Filip</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Filip</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description"></h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://kitions.github.io/2019/04/15/node.js — koa — Typescript 微信连接api/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="link">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Filip">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">node.js — koa — Typescript 微信连接api</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-15T11:51:12+08:00">
+                2019-04-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/默认分类/" itemprop="url" rel="index">
+                    <span itemprop="name">默认分类</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/04/15/node.js — koa — Typescript 微信连接api/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/04/15/node.js — koa — Typescript 微信连接api/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2019/04/15/node.js — koa — Typescript 微信连接api/" class="leancloud_visitors" data-flag-title="node.js — koa — Typescript 微信连接api">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+              <div class="post-description">
+                  共4步骤，比较简单，用了memory-cache，后期需要定时任务
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="node-js-—-koa-—-Typescript-微信连接api"><a href="#node-js-—-koa-—-Typescript-微信连接api" class="headerlink" title="node.js — koa — Typescript 微信连接api"></a>node.js — koa — Typescript 微信连接api</h3><p>服务器中间层框架为koa，使用node原生的加密方式，应该整个公司项目的微信api都从一个接口上出去，不应该分散到各个项目去单独调api，便于管理维护，减少调用次数</p>
+<p><code>memory-cache</code>为请求到的access_token做缓存，微信调用access_token每日有次数限制。目前是根据时间判断的，理应后期加上定时任务</p>
+<ol>
+<li>获取access_token存入缓存，有效期两小时，有的话从缓存中取</li>
+<li>获取ticket存入缓存，有效期两小时，有的话从缓存中取</li>
+<li>将获取到的ticket和其他三个参数进行sha1-HEX加密，拿到签名signature</li>
+<li>提供一个接口供前端调(ps: 敏感字段请勿传给前台)</li>
+</ol>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> koa <span class="keyword">from</span> <span class="string">"koa"</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; HTTPProtocol &#125; <span class="keyword">from</span> <span class="string">"@Constance/interface"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> &#123; getData, httpType &#125; <span class="keyword">from</span> <span class="string">'@Utils/http'</span></span><br><span class="line"><span class="keyword">import</span> Config <span class="keyword">from</span> <span class="string">'@Config/config'</span></span><br><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> cache <span class="keyword">from</span> <span class="string">'memory-cache'</span></span><br><span class="line"><span class="keyword">const</span> crypto = <span class="built_in">require</span>(<span class="string">'crypto'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">interface</span> IAccessTokenResponse &#123;</span><br><span class="line">	errcode: <span class="built_in">number</span>;</span><br><span class="line">	errmsg: <span class="built_in">string</span>;</span><br><span class="line">	access_token: <span class="built_in">string</span>;</span><br><span class="line">	expires_in: <span class="built_in">number</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">interface</span> jsAPITicketResponse &#123;</span><br><span class="line">	errcode: <span class="built_in">number</span>;</span><br><span class="line">	errmsg: <span class="built_in">string</span>;</span><br><span class="line">	ticket: <span class="built_in">string</span>;</span><br><span class="line">	expires_in: <span class="built_in">number</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> getWxConfig = <span class="keyword">async</span> (ctx: koa.Context) =&gt; &#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	<span class="keyword">const</span> &#123; url &#125; = ctx.query</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 返回给前台的数据</span></span><br><span class="line">	<span class="keyword">let</span> res: HTTPProtocol&lt;<span class="built_in">any</span>&gt; = &#123;</span><br><span class="line">		code: <span class="number">0</span>,</span><br><span class="line">		msg: <span class="string">"成功"</span>,</span><br><span class="line">		data: <span class="string">""</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (!url) &#123;</span><br><span class="line">		res.msg = <span class="string">"无URL"</span></span><br><span class="line">		ctx.body = res</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	<span class="keyword">let</span> timestamp: <span class="built_in">number</span> = <span class="built_in">Math</span>.floor(<span class="built_in">Date</span>.now() / <span class="number">1000</span>);</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 获取access_token </span></span><br><span class="line">	<span class="keyword">if</span> (!cache.get(<span class="string">"tokenObj"</span>) || cache.get(<span class="string">"tokenObj"</span>).expires_in &lt; timestamp || cache.get(<span class="string">"tokenObj"</span>).app_id !== Config.wx_gzh.app_id) &#123;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">let</span> getAccessURL = Config.wx_gzh.access_token + <span class="string">`&amp;appid=`</span> + Config.wx_gzh.app_id + <span class="string">`&amp;secret=`</span> + Config.wx_gzh.app_secret</span><br><span class="line"></span><br><span class="line">		<span class="keyword">const</span> WxAccessToken = <span class="keyword">await</span> getData&lt;IAccessTokenResponse&gt;(getAccessURL, httpType.get)</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> (WxAccessToken &amp;&amp; WxAccessToken.access_token) &#123;</span><br><span class="line">			cache.put(<span class="string">"tokenObj"</span>, &#123;</span><br><span class="line">				access_token: WxAccessToken.access_token,</span><br><span class="line">				expires_in: timestamp + (WxAccessToken.expires_in - <span class="number">1800</span>),</span><br><span class="line">				app_id: Config.wx_gzh.app_id</span><br><span class="line">			&#125;, <span class="number">1.5</span> * <span class="number">60</span> * <span class="number">60</span> * <span class="number">1000</span>)</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">			cache.put(<span class="string">"tokenObj"</span>, <span class="literal">null</span>);</span><br><span class="line">			ctx.logger.error(<span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">`wxconfig: <span class="subst">$&#123;JSON.stringify(Config.wx_gzh)&#125;</span>`</span>));</span><br><span class="line">			ctx.logger.error(<span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">`tokenResult: <span class="subst">$&#123;JSON.stringify(WxAccessToken)&#125;</span>`</span>));</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	res.code = <span class="number">500</span></span><br><span class="line">	res.msg = <span class="string">"获取access失败"</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	<span class="comment">// 获取ticket</span></span><br><span class="line">	<span class="keyword">if</span> (cache.get(<span class="string">"tokenObj"</span>) &amp;&amp; cache.get(<span class="string">"tokenObj"</span>).app_id === Config.wx_gzh.app_id) &#123;</span><br><span class="line">		timestamp = <span class="built_in">Math</span>.floor(<span class="built_in">Date</span>.now() / <span class="number">1000</span>);</span><br><span class="line">		<span class="keyword">if</span> (!cache.get(<span class="string">"jsapiObj"</span>) || cache.get(<span class="string">"jsapiObj"</span>).expires_in &lt; timestamp || cache.get(<span class="string">"jsapiObj"</span>).app_id !== Config.wx_gzh.app_id) &#123;</span><br><span class="line"></span><br><span class="line">			<span class="keyword">let</span> getTicketURL = Config.wx_gzh.js_api + <span class="string">`&amp;access_token=`</span> + cache.get(<span class="string">"tokenObj"</span>).access_token</span><br><span class="line">			<span class="keyword">const</span> WxTicket = <span class="keyword">await</span> getData&lt;jsAPITicketResponse&gt;(getTicketURL, httpType.get)</span><br><span class="line"></span><br><span class="line">			<span class="keyword">if</span> (WxTicket &amp;&amp; WxTicket.ticket) &#123;</span><br><span class="line">				cache.put(<span class="string">"jsapiObj"</span>, &#123;</span><br><span class="line">					ticket: WxTicket.ticket,</span><br><span class="line">					expires_in: timestamp + (WxTicket.expires_in - <span class="number">1800</span>),</span><br><span class="line">					app_id: Config.wx_gzh.app_id</span><br><span class="line">				&#125;, <span class="number">1.5</span> * <span class="number">60</span> * <span class="number">60</span> * <span class="number">1000</span>)</span><br><span class="line">			&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">				cache.put(<span class="string">"jsapiObj"</span>, <span class="literal">null</span>);</span><br><span class="line">				ctx.logger.error(<span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">`wxconfig: <span class="subst">$&#123;JSON.stringify(Config.wx_gzh)&#125;</span>`</span>));</span><br><span class="line">				ctx.logger.error(<span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">`jsapiResult: <span class="subst">$&#123;JSON.stringify(WxTicket)&#125;</span>`</span>));</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> (cache.get(<span class="string">"jsapiObj"</span>) &amp;&amp; cache.get(<span class="string">"jsapiObj"</span>).app_id === Config.wx_gzh.app_id) &#123;</span><br><span class="line"></span><br><span class="line">			<span class="keyword">const</span> jsapi_ticket = cache.get(<span class="string">"jsapiObj"</span>).ticket;</span><br><span class="line">			<span class="keyword">const</span> nonceStr = Config.wx_gzh.nonce_str</span><br><span class="line">			timestamp = <span class="built_in">Math</span>.floor(<span class="built_in">Date</span>.now() / <span class="number">1000</span>);</span><br><span class="line">			<span class="keyword">const</span> string1 = <span class="string">`jsapi_ticket=<span class="subst">$&#123;jsapi_ticket&#125;</span>&amp;noncestr=<span class="subst">$&#123;nonceStr&#125;</span>&amp;timestamp=<span class="subst">$&#123;timestamp&#125;</span>&amp;url=<span class="subst">$&#123;url&#125;</span>`</span>;</span><br><span class="line">			<span class="keyword">const</span> signature = sha1Trans(string1)</span><br><span class="line">			res.code = <span class="number">0</span></span><br><span class="line">			res.msg = <span class="string">"成功"</span></span><br><span class="line">			res.data = &#123;</span><br><span class="line">				nonceStr: nonceStr,</span><br><span class="line">				timestamp: timestamp,</span><br><span class="line">				signature: signature,</span><br><span class="line">				appId: Config.wx_gzh.app_id</span><br><span class="line">			&#125;;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">sha1Trans</span>(<span class="params">str: <span class="built_in">string</span></span>) </span>&#123;</span><br><span class="line">		<span class="keyword">var</span> sha1 = crypto.createHash(<span class="string">'sha1'</span>);<span class="comment">//创建哈希加密算法，后边可以是md5，sha1,sha256等</span></span><br><span class="line">		<span class="keyword">var</span> newStr = sha1.update(str).digest(<span class="string">'HEX'</span>);</span><br><span class="line">		<span class="keyword">return</span> newStr</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	ctx.body = res</span><br><span class="line"></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> &#123;</span><br><span class="line">	getWxConfig</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>配置文件为：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">"wx_gzh": &#123;</span><br><span class="line">   "nonce_str": "随机字符串",</span><br><span class="line">   "app_id": "你自己的",</span><br><span class="line">   "app_secret": "你自己的",</span><br><span class="line">   "js_api": "https://api.weixin.qq.com/cgi-bin/ticket/getticket?type=jsapi",</span><br><span class="line">   "access_token": "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential"</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>感谢你的打赏哦！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="link 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="link 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/微信/" rel="tag"># 微信</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/28/golang-http封装/" rel="next" title="golang之http封装">
+                <i class="fa fa-chevron-left"></i> golang之http封装
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/04/28/Next.js中Window未定义/" rel="prev" title="Next.js-Window或Document 对象未定义">
+                Next.js-Window或Document 对象未定义 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">link</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">59</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">35</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/kitions" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:nsplknsplk@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://plus.google.com/nsplknsplk" target="_blank" title="Google">
+                      
+                        <i class="fa fa-fw fa-google"></i>Google</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://weibo.com/your-user-name" target="_blank" title="微博">
+                      
+                        <i class="fa fa-fw fa-weibo"></i>微博</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://www.zhihu.com/people/your-user-name" target="_blank" title="知乎">
+                      
+                        <i class="fa fa-fw fa-zhihu"></i>知乎</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#node-js-—-koa-—-Typescript-微信连接api"><span class="nav-number">1.</span> <span class="nav-text">node.js — koa — Typescript 微信连接api</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">link</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'ohCdgFTxBCqGAWc738RfOoS4-gzGzoHsz',
+        appKey: 'ePCpct3dlRSGr3dY2Og1UQSY',
+        placeholder: '来来来  输入你的评论吧',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.4"></script>
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("ohCdgFTxBCqGAWc738RfOoS4-gzGzoHsz", "ePCpct3dlRSGr3dY2Og1UQSY");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
