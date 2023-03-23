@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Filip" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="Dockerfile一般来说，根据以下三步，可以将脚本命令翻译成 Dockerfile。  选择一个基础镜像。可在 Docker Hub (opens new window)中进行查找镜像。由于前端项目依赖于 Node 环境，我们选择 node:14-alpine (opens new window)作为基础镜像，其中基于轻量操作系统 alpine，内置了 node14/npm/yarn 等运行环">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Filip">
+<meta property="og:url" content="https://kitions.github.io/2022/12/02/2022-12-02Dockerfile/index.html">
+<meta property="og:site_name" content="Filip">
+<meta property="og:description" content="Dockerfile一般来说，根据以下三步，可以将脚本命令翻译成 Dockerfile。  选择一个基础镜像。可在 Docker Hub (opens new window)中进行查找镜像。由于前端项目依赖于 Node 环境，我们选择 node:14-alpine (opens new window)作为基础镜像，其中基于轻量操作系统 alpine，内置了 node14/npm/yarn 等运行环">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/008vxvgGgy1h8pa8u7ie4j30v4054759.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/008vxvgGgy1h8pghbkbegj30u01y2gpv.jpg">
+<meta property="og:updated_time" content="2022-12-28T06:16:14.382Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Filip">
+<meta name="twitter:description" content="Dockerfile一般来说，根据以下三步，可以将脚本命令翻译成 Dockerfile。  选择一个基础镜像。可在 Docker Hub (opens new window)中进行查找镜像。由于前端项目依赖于 Node 环境，我们选择 node:14-alpine (opens new window)作为基础镜像，其中基于轻量操作系统 alpine，内置了 node14/npm/yarn 等运行环">
+<meta name="twitter:image" content="https://tva1.sinaimg.cn/large/008vxvgGgy1h8pa8u7ie4j30v4054759.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: 'HYECV8YAZW',
+      apiKey: '8ba59849a179718d8a9c48e0b89c302e',
+      indexName: 'kition',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"输入关键字","hits_empty":"没有找到该相关内容: ${query}","hits_stats":"${hits} 条记录  耗时 ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://kitions.github.io/2022/12/02/2022-12-02Dockerfile/">
+
+
+
+
+
+  <title> | Filip</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Filip</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description"></h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://kitions.github.io/2022/12/02/2022-12-02Dockerfile/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="link">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Filip">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline"></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-12-02T10:57:35+08:00">
+                2022-12-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2022/12/02/2022-12-02Dockerfile/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2022/12/02/2022-12-02Dockerfile/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2022/12/02/2022-12-02Dockerfile/" class="leancloud_visitors" data-flag-title="">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Dockerfile"><a href="#Dockerfile" class="headerlink" title="Dockerfile"></a>Dockerfile</h2><p>一般来说，根据以下三步，可以将脚本命令翻译成 Dockerfile。</p>
+<ol>
+<li>选择一个基础镜像。可在 <a href="https://hub.docker.com/" target="_blank" rel="noopener">Docker Hub (opens new window)</a>中进行查找镜像。由于前端项目依赖于 Node 环境，我们选择 <a href="https://hub.docker.com/_/node?tab=description" target="_blank" rel="noopener">node:14-alpine (opens new window)</a>作为基础镜像，其中基于轻量操作系统 <code>alpine</code>，内置了 <code>node14</code>/<code>npm</code>/<code>yarn</code> 等运行环境。</li>
+<li>将以上几个脚本命令放在 RUN 指令中。</li>
+<li>启动服务命令放在 CMD 指令中。</li>
+</ol>
+<p>next项目</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># link 2209 test</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Install dependencies only when needed</span></span><br><span class="line"><span class="keyword">FROM</span> node:<span class="number">16</span>-alpine AS deps</span><br><span class="line"><span class="comment"># Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.</span></span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> apk add --no-cache libc6-compat</span></span><br><span class="line"><span class="bash">WORKDIR /app</span></span><br><span class="line"><span class="bash"></span></span><br><span class="line"><span class="bash"><span class="comment"># Install dependencies based on the preferred package manager</span></span></span><br><span class="line"><span class="bash">COPY .npmrc package.json yarn.lock* package-lock.json* pnpm-lock.yaml* ./</span></span><br><span class="line"><span class="bash">RUN \</span></span><br><span class="line"><span class="bash">	<span class="keyword">if</span> [ -f pnpm-lock.yaml ]; <span class="keyword">then</span> yarn global add pnpm &amp;&amp; pnpm i; \</span></span><br><span class="line"><span class="bash">  <span class="keyword">elif</span> [ -f yarn.lock ]; <span class="keyword">then</span> yarn --frozen-lockfile; \</span></span><br><span class="line"><span class="bash">  <span class="keyword">elif</span> [ -f package-lock.json ]; <span class="keyword">then</span> npm ci; \</span></span><br><span class="line"><span class="bash">  <span class="keyword">else</span> <span class="built_in">echo</span> <span class="string">"Lockfile not found."</span> &amp;&amp; <span class="built_in">exit</span> 1; \</span></span><br><span class="line"><span class="bash">  <span class="keyword">fi</span></span></span><br><span class="line"><span class="bash"></span></span><br><span class="line"><span class="bash"></span></span><br><span class="line"><span class="bash"><span class="comment"># Rebuild the source code only when needed</span></span></span><br><span class="line"><span class="bash">FROM node:16-alpine AS builder</span></span><br><span class="line"><span class="bash">WORKDIR /app</span></span><br><span class="line"><span class="bash">COPY --from=deps /app/node_modules ./node_modules</span></span><br><span class="line"><span class="bash">COPY . .</span></span><br><span class="line"><span class="bash"></span></span><br><span class="line"><span class="bash"><span class="comment"># Next.js collects completely anonymous telemetry data about general usage.</span></span></span><br><span class="line"><span class="bash"><span class="comment"># Learn more here: https://nextjs.org/telemetry</span></span></span><br><span class="line"><span class="bash"><span class="comment"># Uncomment the following line in case you want to disable telemetry during the build.</span></span></span><br><span class="line"><span class="bash"><span class="comment"># ENV NEXT_TELEMETRY_DISABLED 1</span></span></span><br><span class="line"><span class="bash">ENV NEXT_TELEMETRY_DISABLED 1</span></span><br><span class="line"><span class="bash">RUN yarn build</span></span><br><span class="line"><span class="bash"></span></span><br><span class="line"><span class="bash"><span class="comment"># If using npm comment out above and use below instead</span></span></span><br><span class="line"><span class="bash"><span class="comment"># RUN npm run build</span></span></span><br><span class="line"><span class="bash"></span></span><br><span class="line"><span class="bash"><span class="comment"># Production image, copy all the files and run next</span></span></span><br><span class="line"><span class="bash">FROM node:16-alpine AS runner</span></span><br><span class="line"><span class="bash">WORKDIR /app</span></span><br><span class="line"><span class="bash"></span></span><br><span class="line"><span class="bash">ENV NODE_ENV production</span></span><br><span class="line"><span class="bash"><span class="comment"># Uncomment the following line in case you want to disable telemetry during runtime.</span></span></span><br><span class="line"><span class="bash">ENV NEXT_TELEMETRY_DISABLED 1</span></span><br><span class="line"><span class="bash"></span></span><br><span class="line"><span class="bash">RUN addgroup --system --gid 1001 nodejs</span></span><br><span class="line"><span class="bash">RUN adduser --system --uid 1001 nextjs</span></span><br><span class="line"><span class="bash"></span></span><br><span class="line"><span class="bash">COPY --from=builder /app/public ./public</span></span><br><span class="line"><span class="bash"></span></span><br><span class="line"><span class="bash"></span></span><br><span class="line"><span class="bash"><span class="comment"># Automatically leverage output traces to reduce image size</span></span></span><br><span class="line"><span class="bash"><span class="comment"># https://nextjs.org/docs/advanced-features/output-file-tracing</span></span></span><br><span class="line"><span class="bash">COPY --from=builder --chown=nextjs:nodejs /app/_next/standalone ./</span></span><br><span class="line"><span class="bash">COPY --from=builder --chown=nextjs:nodejs /app/_next/static ./_next/static</span></span><br><span class="line"><span class="bash"></span></span><br><span class="line"><span class="bash">USER nextjs</span></span><br><span class="line"><span class="bash"></span></span><br><span class="line"><span class="bash">EXPOSE 3000</span></span><br><span class="line"><span class="bash"></span></span><br><span class="line"><span class="bash">ENV PORT 3000</span></span><br><span class="line"><span class="bash"></span></span><br><span class="line"><span class="bash">CMD [<span class="string">"node"</span>, <span class="string">"server.js"</span>]</span></span><br></pre></td></tr></table></figure>
+<h2 id="构建镜像-Image"><a href="#构建镜像-Image" class="headerlink" title="构建镜像 (Image)"></a>构建镜像 (Image)</h2><p>使用 <code>docker build</code>命令可以基于DockerFile 构建镜像</p>
+<p>镜像构建成功后，我们可以将仓库上传到Docker仓库，如Docker Hub</p>
+<p>而对于业务项目而言，一般会上传至公司内部的私有镜像仓库，比如通过 <a href="https://github.com/goharbor/harbor" target="_blank" rel="noopener">harbor (opens new window)</a>搭建的私有镜像仓库。</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 构建一个名为 simple-app 的镜像</span></span><br><span class="line"><span class="comment"># -t: "name:tag" 构建镜像名称</span></span><br><span class="line">$ docker build -t simple-app .</span><br><span class="line"></span><br><span class="line"><span class="comment"># git rev-parse --short HEAD: 列出当前仓库的 CommitId</span></span><br><span class="line"><span class="comment"># 也可将当前 Commit 作为镜像的 Tag</span></span><br><span class="line"><span class="comment"># 如果该前端项目使用 git tag 以及 package.json 中的 version 进行版本维护，也可将 version 作为生产环境镜像的 Tag</span></span><br><span class="line">$ docker build -t simple-app:$(git rev-parse --short HEAD)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 构建成功后，可用该命令列出所有的镜像</span></span><br><span class="line"><span class="comment"># 发现该镜像占用体积 133MB</span></span><br><span class="line">$ docker images</span><br><span class="line">REPOSITORY    TAG       IMAGE ID       CREATED         SIZE</span><br><span class="line">simaple-app   latest    <span class="number">20</span>afeb439c58   <span class="number">3</span> minutes ago   <span class="number">146</span>MB</span><br></pre></td></tr></table></figure>
+<p>此时构建镜像成功，通过 <code>docker images</code> 可知镜像体积为 <strong>133MB</strong>。</p>
+<h2 id="运行容器"><a href="#运行容器" class="headerlink" title="运行容器"></a>运行容器</h2><p>我们可以基于镜像运行 N 个容器，而本次启动的容器也是我们最终所要提供的静态服务。</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 根据该镜像运行容器</span></span><br><span class="line"><span class="comment"># 如果需要在后台运行则添加 -d 选项</span></span><br><span class="line"><span class="comment"># --rm: 当容器停止运行时，自动删除容器</span></span><br><span class="line"><span class="comment"># -p: 3000:3000，将容器中的 3000 端口映射到宿主机的 3000 端口，左侧端口为宿主机端口，右侧为容器端口</span></span><br><span class="line">docker <span class="keyword">run</span><span class="bash"> --rm -p 3000:3000 simaple-app</span></span><br><span class="line"><span class="bash"></span></span><br><span class="line"><span class="bash"><span class="comment"># 运行成功后可在另一个窗口查看所有容器</span></span></span><br><span class="line"><span class="bash">➜  next-starter git:(next_docker) ✗ docker ps</span></span><br><span class="line"><span class="bash">CONTAINER ID   IMAGE         COMMAND                  CREATED         STATUS         PORTS                    NAMES</span></span><br><span class="line"><span class="bash">dfabb0d0a8e4   simaple-app   <span class="string">"docker-entrypoint.s…"</span>   4 minutes ago   Up 4 minutes   0.0.0.0:3000-&gt;3000/tcp   angry_chatterjee</span></span><br></pre></td></tr></table></figure>
+<p><img src="https://tva1.sinaimg.cn/large/008vxvgGgy1h8pa8u7ie4j30v4054759.jpg" alt="image-20221202110051764"></p>
+<p>此时在本地访问 <code>http://localhost:3000</code> 访问成功</p>
+<p>然而，通过冗余繁琐的命令行构建镜像和容器，比如管理端口，存储、环境变量等，有其天然的劣势，不易维护。</p>
+<h2 id="Using-Docker"><a href="#Using-Docker" class="headerlink" title="Using Docker"></a>Using Docker</h2><ol>
+<li><a href="https://docs.docker.com/get-docker/" target="_blank" rel="noopener">Install Docker</a> on your machine.</li>
+<li>Build your container: <code>docker build -t nextjs-docker .</code>.</li>
+<li>Run your container: <code>docker run -p 3000:3000 nextjs-docker</code>.</li>
+</ol>
+<p>You can view your images created with <code>docker images</code>.</p>
+<h3 id="In-existing-projects"><a href="#In-existing-projects" class="headerlink" title="In existing projects"></a>In existing projects</h3><p>To add support for Docker to an existing project, just copy the <code>Dockerfile</code> into the root of the project and add the following to the <code>next.config.js</code> file:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// next.config.js</span></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  <span class="comment">// ... rest of the configuration.</span></span><br><span class="line">  output: <span class="string">'standalone'</span>,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>This will build the project as a standalone app inside the Docker image.</p>
+<h2 id="更高效的方式-docker-compose"><a href="#更高效的方式-docker-compose" class="headerlink" title="更高效的方式 docker-compose"></a>更高效的方式 docker-compose</h2><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">'3'</span></span><br><span class="line"></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line"><span class="attr">  with-docker-multi-env-development:</span></span><br><span class="line"><span class="attr">    build:</span></span><br><span class="line"><span class="attr">      context:</span> <span class="string">../../</span></span><br><span class="line"><span class="attr">      dockerfile:</span> <span class="string">docker/development/Dockerfile</span></span><br><span class="line"><span class="attr">    image:</span> <span class="string">with-docker-multi-env-development</span></span><br><span class="line"><span class="attr">    ports:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">'3001:3000'</span></span><br></pre></td></tr></table></figure>
+<p>配置结束之后，即可通过一行命令 docker-compose up 替代以前关于构建及运行容器的所有命令。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># up: 创建并启动容器</span></span><br><span class="line"><span class="comment"># --build: 每次启动容器前构建镜像</span></span><br><span class="line">$ docker-compose up --build</span><br></pre></td></tr></table></figure>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"><span class="meta-keyword">.PHONY</span>: build-development</span></span><br><span class="line"><span class="section">build-development: ## Build the development docker image.</span></span><br><span class="line">	docker compose -f docker/development/docker-compose.yml build</span><br><span class="line"></span><br><span class="line"><span class="meta"><span class="meta-keyword">.PHONY</span>: start-development</span></span><br><span class="line"><span class="section">start-development: ## Start the development docker container.</span></span><br><span class="line">	docker compose -f docker/development/docker-compose.yml up -d</span><br></pre></td></tr></table></figure>
+<h2 id="服务器原始打包编译过程："><a href="#服务器原始打包编译过程：" class="headerlink" title="服务器原始打包编译过程："></a>服务器原始打包编译过程：<img src="https://tva1.sinaimg.cn/large/008vxvgGgy1h8pghbkbegj30u01y2gpv.jpg" alt="前端发版流程"></h2>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>感谢你的打赏哦！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="link 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="link 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2022/11/10/221013Recoil/" rel="next" title="React状态管理库Recoil浅入浅出">
+                <i class="fa fa-chevron-left"></i> React状态管理库Recoil浅入浅出
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2022/12/05/2022-12-01docker 指南/" rel="prev" title="">
+                 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">link</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">64</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">36</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/kitions" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:nsplknsplk@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://plus.google.com/nsplknsplk" target="_blank" title="Google">
+                      
+                        <i class="fa fa-fw fa-google"></i>Google</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://weibo.com/your-user-name" target="_blank" title="微博">
+                      
+                        <i class="fa fa-fw fa-weibo"></i>微博</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://www.zhihu.com/people/your-user-name" target="_blank" title="知乎">
+                      
+                        <i class="fa fa-fw fa-zhihu"></i>知乎</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Dockerfile"><span class="nav-number">1.</span> <span class="nav-text">Dockerfile</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#构建镜像-Image"><span class="nav-number">2.</span> <span class="nav-text">构建镜像 (Image)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#运行容器"><span class="nav-number">3.</span> <span class="nav-text">运行容器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Using-Docker"><span class="nav-number">4.</span> <span class="nav-text">Using Docker</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#In-existing-projects"><span class="nav-number">4.1.</span> <span class="nav-text">In existing projects</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更高效的方式-docker-compose"><span class="nav-number">5.</span> <span class="nav-text">更高效的方式 docker-compose</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#服务器原始打包编译过程："><span class="nav-number">6.</span> <span class="nav-text">服务器原始打包编译过程：</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">link</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'ohCdgFTxBCqGAWc738RfOoS4-gzGzoHsz',
+        appKey: 'ePCpct3dlRSGr3dY2Og1UQSY',
+        placeholder: '来来来  输入你的评论吧',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.4"></script>
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("ohCdgFTxBCqGAWc738RfOoS4-gzGzoHsz", "ePCpct3dlRSGr3dY2Og1UQSY");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

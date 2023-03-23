@@ -1,0 +1,1094 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="部署,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Filip" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="github、gitlab部署CICD">
+<meta name="keywords" content="部署">
+<meta property="og:type" content="article">
+<meta property="og:title" content="部署CICD">
+<meta property="og:url" content="https://kitions.github.io/2022/12/12/2022-12-03CICD/index.html">
+<meta property="og:site_name" content="Filip">
+<meta property="og:description" content="github、gitlab部署CICD">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/008vxvgGgy1h8pianj1xqj31b00ton0i.jpg">
+<meta property="og:updated_time" content="2022-12-28T01:45:52.374Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="部署CICD">
+<meta name="twitter:description" content="github、gitlab部署CICD">
+<meta name="twitter:image" content="https://tva1.sinaimg.cn/large/008vxvgGgy1h8pianj1xqj31b00ton0i.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: 'HYECV8YAZW',
+      apiKey: '8ba59849a179718d8a9c48e0b89c302e',
+      indexName: 'kition',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"输入关键字","hits_empty":"没有找到该相关内容: ${query}","hits_stats":"${hits} 条记录  耗时 ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://kitions.github.io/2022/12/12/2022-12-03CICD/">
+
+
+
+
+
+  <title>部署CICD | Filip</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Filip</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description"></h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://kitions.github.io/2022/12/12/2022-12-03CICD/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="link">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Filip">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">部署CICD</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-12-12T11:23:01+08:00">
+                2022-12-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/部署/" itemprop="url" rel="index">
+                    <span itemprop="name">部署</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2022/12/12/2022-12-03CICD/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2022/12/12/2022-12-03CICD/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2022/12/12/2022-12-03CICD/" class="leancloud_visitors" data-flag-title="部署CICD">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+              <div class="post-description">
+                  github、gitlab部署CICD
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="CICD"><a href="#CICD" class="headerlink" title="CICD"></a>CICD</h1><p><strong>每当我们将前端代码更新并 PUSH 到仓库后，CICD 将会拉取仓库代码并自动部署到服务器。</strong></p>
+<p>这就是 CICD 要做的事情。</p>
+<ul>
+<li><code>CI</code>，Continuous Integration，持续集成。</li>
+<li><code>CD</code>，Continuous Deployment，持续部署。(或者 Continuous Delivery，持续交付)</li>
+</ul>
+<p><code>CICD</code> 与 git 集成在一起，可理解为服务器端的 <code>git hooks</code>: 当代码 push 到远程仓库后，对当前代码在构建服务器(即 CI 服务器，也称作 Runner)中进行自动构建、测试及部署等。</p>
+<p>为了方便理解，我们将上文章中用于部署的服务器称为<strong>部署服务器</strong>，而 CI 中所指的服务器，称为构建服务器。</p>
+<ul>
+<li>部署服务器: 对外提供服务的服务器，容器在该服务器中构建并启动。</li>
+<li>构建服务器: 进行CI构建的服务器，一般用以构建、测试和部署，构建镜像以及自动部署服务。一般也可以是 Docker 容器。</li>
+</ul>
+<p>在以前的篇章中，<strong>相当于构建服务器和部署服务器为同一个服务器</strong>，而在工作中，二者往往为独立服务器。</p>
+<p>但是为了更好的 CICD，构建服务器会赋予控制部署服务集群的权限，<strong>在构建服务器中通过一条命令，即可将某个服务在部署服务器集群中进行部署。</strong></p>
+<p>在 CICD 中，构建服务器往往会做以下工作:</p>
+<ol>
+<li>功能分支提交后，通过 CICD 进行自动化测试、语法检查、npm 库风险审计等前端质量保障工程，<strong>如未通过 CICD，则无法 Code Review，更无法合并到生产环境分支进行上线</strong></li>
+<li>功能分支提交后，通过 CICD 对当前分支代码构建独立镜像，并<strong>生成独立的分支环境地址</strong>进行测试。如对每一个功能分支生成一个可供测试的地址，一般是 <code>&lt;branch&gt;.xx.xx.com</code> 此种地址</li>
+<li>功能分支测试通过后，合并到主分支，<strong>自动构建镜像并部署到生成环境中</strong> (一般生成环境需要手动触发、自动部署)</li>
+</ol>
+<p><img src="https://tva1.sinaimg.cn/large/008vxvgGgy1h8pianj1xqj31b00ton0i.jpg" alt="img"></p>
+<blockquote>
+<p><a href="https://docs.gitlab.com/ee/ci/introduction/index.html#basic-cicd-workflow" target="_blank" rel="noopener">Gitlab CICD Workflow<br>(opens new window)</a></p>
+</blockquote>
+<ol>
+<li>CI: 切出功能分支，进行新特性开发。此时为图中的 <code>Verify</code>、<code>Package</code> 阶段</li>
+<li><p>CD: 合并功能分支，进行自动化部署。此时为图中的 <code>Release</code> 阶段。</p>
+<p>CICD 的基本术语</p>
+</li>
+</ol>
+<ul>
+<li><code>Runner</code>: 用来执行 CI/CD 的构建服务器</li>
+<li><code>workflow/pipeline</code>: CI/CD 的工作流。(在大部分 CI，如 Gitlab 中为 Pipeline，而 Github 中为 Workflow，但二者实际上还是略有不同)</li>
+<li><code>job</code>: 任务，比如构建，测试和部署。每个 <code>workflow</code>/<code>pipeline</code> 由多个 <code>job</code> 组成</li>
+</ul>
+<h3 id="事件-on-push"><a href="#事件-on-push" class="headerlink" title="事件: on push"></a>事件: on push</h3><p>该 CI/CD 触发时的事件。如果需要上传代码自动部署的功能，应该选择 <code>on: push</code></p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">on:</span> <span class="string">push</span></span><br></pre></td></tr></table></figure>
+<p>更多 Github Actions Event 可以参考官方文档 <a href="https://help.github.com/en/actions/automating-your-workflow-with-github-actions/events-that-trigger-workflows#about-workflow-events" target="_blank" rel="noopener">Events that trigger workflows(opens new window)</a></p>
+<p>以下是 Github Actions 的一些时机的示例：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 仅仅当 master 代码发生变更时，用以自动化部署</span></span><br><span class="line"><span class="attr">on:</span></span><br><span class="line"><span class="attr">  push:</span></span><br><span class="line"><span class="attr">    branches:</span>    </span><br><span class="line"><span class="bullet">      -</span> <span class="string">master</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 仅当 feature/** 分支发生变更时，进行 Preview 功能分支部署 </span></span><br><span class="line"><span class="attr">on:</span></span><br><span class="line"><span class="attr">  push:</span></span><br><span class="line"><span class="attr">    branches:</span>    </span><br><span class="line"><span class="bullet">      -</span> <span class="string">'feature/**'</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 仅当提交 PR 及提交后 feature/** 分支发生变更时，进行 Preview 功能分支部署 </span></span><br><span class="line"><span class="attr">on:</span></span><br><span class="line"><span class="attr">  pull_request:</span></span><br><span class="line"><span class="attr">    types:</span></span><br><span class="line">      <span class="comment"># 当新建了一个 PR 时</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">opened</span></span><br><span class="line">      <span class="comment"># 当提交 PR 的分支，未合并前并拥有新的 Commit 时</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">synchronize</span></span><br><span class="line"><span class="attr">    branches:</span>    </span><br><span class="line"><span class="bullet">      -</span> <span class="string">'feature/**'</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 在每天凌晨 0:30 处理一些事情，比如清理多余的 OSS 资源，清理多余的功能分支 Preview </span></span><br><span class="line"><span class="attr">on:</span></span><br><span class="line"><span class="attr">  schedule:</span></span><br><span class="line"><span class="attr">    - cron:</span>  <span class="string">'30 0 * * *'</span></span><br></pre></td></tr></table></figure>
+<p>在 Gitlab CI 中通过 <a href="https://docs.gitlab.com/ee/ci/yaml/#rules" target="_blank" rel="noopener">rules (opens new window)</a>进行配置，以下是 Gitlab CI 一些时机的示例：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 仅仅当 master 代码发生变更时，用以自动化部署</span></span><br><span class="line"><span class="attr">rules:</span></span><br><span class="line"><span class="attr">  - if:</span> <span class="string">$CI_COMMIT_REF_NAME</span> <span class="string">=</span> <span class="string">"master"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 仅当 feature/** 分支发生变更时，进行 Preview 功能分支部署 (见 Preview 篇)</span></span><br><span class="line"><span class="attr">rules:</span></span><br><span class="line"><span class="attr">  - if:</span> <span class="string">$CI_COMMIT_REF_NAME</span> <span class="string">=~</span> <span class="string">/feature/</span></span><br><span class="line"></span><br><span class="line"><span class="attr">rules:</span></span><br><span class="line"><span class="attr">  - if:</span> <span class="string">$CI_PIPELINE_SOURCE</span> <span class="string">==</span> <span class="string">"merge_request_event"</span></span><br></pre></td></tr></table></figure>
+<h3 id="命令-Job-与脚本"><a href="#命令-Job-与脚本" class="headerlink" title="命令: Job 与脚本"></a>命令: Job 与脚本</h3><p>如，在 push 到最新代码时，使用 <code>docker-compose up</code> 进行部署。</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">name:</span> <span class="string">push</span></span><br><span class="line"></span><br><span class="line"><span class="attr">on:</span> <span class="string">[push]</span></span><br><span class="line"></span><br><span class="line"><span class="attr">jobs:</span></span><br><span class="line"><span class="attr">  test:</span></span><br><span class="line">    <span class="comment"># 将代码跑在 ubuntu 上</span></span><br><span class="line"><span class="attr">    runs-on:</span> <span class="string">ubuntu-latest</span></span><br><span class="line"><span class="attr">    steps:</span></span><br><span class="line">      <span class="comment"># 切出代码，使用该 Action 将可以拉取最新代码</span></span><br><span class="line"><span class="attr">      - uses:</span> <span class="string">actions/checkout@v2</span></span><br><span class="line"></span><br><span class="line">      <span class="comment"># 运行部署的脚本命令</span></span><br><span class="line"><span class="attr">      - run:</span> <span class="string">docker-compose</span> <span class="string">up</span> <span class="bullet">-d</span></span><br></pre></td></tr></table></figure>
+<h2 id="分支的合并策略-主分支保护规则"><a href="#分支的合并策略-主分支保护规则" class="headerlink" title="分支的合并策略 (主分支保护规则)"></a>分支的合并策略 (主分支保护规则)</h2><p><strong>生产环境的代码必须通过 CI 检测才能上线</strong>，但这也需要我们进行手动设置。</p>
+<p>一般而言，我们会设置以下策略加强代码的质量管理。</p>
+<ol>
+<li>主分支禁止直接 PUSH 代码</li>
+<li>代码都必须通过 PR 才能合并到主分支</li>
+<li><strong>分支必须 CI 成功才能合并到主分支</strong></li>
+<li>代码必须经过 Code Review (关于该 PR 下的所有 Review 必须解决)</li>
+<li>代码必须两个人同意才能合并到主分支</li>
+</ol>
+<p>在 Gitlab 与 Github 中均可进行设置:</p>
+<ul>
+<li><a href="https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/defining-the-mergeability-of-pull-requests/managing-a-branch-protection-rule" target="_blank" rel="noopener">Github: Managing a branch protection rule(opens new window)</a></li>
+<li><a href="https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html" target="_blank" rel="noopener">Gitlab: Merge when pipeline succeeds(opens new window)</a></li>
+<li><a href="https://docs.gitlab.com/ee/user/project/merge_requests/approvals/" target="_blank" rel="noopener">Gitlab: Merge request approvals ALL TIERS(opens new window)</a></li>
+</ul>
+<p>如下示例，未通过 CI，不允许 Merge。可见示例 <a href="https://github.com/shfshanyue/cra-deploy/pull/22" target="_blank" rel="noopener">PR #22 (opens new window)</a>。</p>
+<h3 id="ssh案例"><a href="#ssh案例" class="headerlink" title="ssh案例"></a>ssh案例</h3><p>以下是对于简单部署在个人服务器的一个 Github Actions 的案例，由于构建服务器无部署服务器管理集群应用的能力与权限 (kubernetes 拥有这种能力)。如果部署到服务器，只能简单粗暴地通过 ssh 进入服务器并拉取代码执行命令。</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">deploy:</span></span><br><span class="line"><span class="attr">  runs-on:</span> <span class="string">ubuntu-latest</span></span><br><span class="line"><span class="attr">  steps:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">|</span></span><br><span class="line"><span class="string">      ssh root@xxx.xx.xx "</span></span><br><span class="line"><span class="string">        # 假设该仓库位于 ~/Documents 目录</span></span><br><span class="line"><span class="string">        cd ~/Documents/deploy</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        # 拉取最新代码</span></span><br><span class="line"><span class="string">        get fetch origin master</span></span><br><span class="line"><span class="string">        git reset --hard origin/master</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        # 部署</span></span><br><span class="line"><span class="string">        docker-compose up --build -d</span></span><br><span class="line"><span class="string">      "</span></span><br></pre></td></tr></table></figure>
+<h2 id="自建-Runner"><a href="#自建-Runner" class="headerlink" title="自建 Runner"></a>自建 Runner</h2><p>在本次实践中，将构建服务器与部署服务器置于一起，则可以解决这个问题。在 Github Actions，可以在自有服务器中自建 Runner，文档如下。</p>
+<p>通过一些封装的命令来完成，分为三步:</p>
+<ol>
+<li>构建镜像</li>
+<li>推送镜像到自建的镜像仓库</li>
+<li>将镜像仓库中的镜像拉取到部署服务器进行部署 (kubectl)</li>
+</ol>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">production:</span></span><br><span class="line">  <span class="comment"># 该 JOB 在自建 Runner 中进行运行</span></span><br><span class="line"><span class="attr">  runs-on:</span> <span class="string">self-hosted</span></span><br><span class="line"><span class="attr">  steps:</span></span><br><span class="line">    <span class="comment"># 构建镜像</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">docker</span> <span class="string">build</span> <span class="bullet">-t</span> <span class="string">cra-deploy-app</span> <span class="string">.</span></span><br><span class="line">    <span class="comment"># 推送镜像</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">docker</span> <span class="string">push</span> <span class="string">cra-deploy-app</span></span><br><span class="line">    <span class="comment"># 拉取镜像并部署，deploy 为一个伪代码命令，在实际项目中可使用 helm、kubectl</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">deploy</span> <span class="string">cra-deploy-app</span> <span class="string">.</span></span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>感谢你的打赏哦！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="link 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="link 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/部署/" rel="tag"># 部署</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2022/12/05/2022-12-01docker 指南/" rel="next" title="">
+                <i class="fa fa-chevron-left"></i> 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2023/03/23/230323Next.js - Postcss-scss - bug/" rel="prev" title="Next.js - Postcss-scss - bug">
+                Next.js - Postcss-scss - bug <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">link</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">64</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">36</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/kitions" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:nsplknsplk@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://plus.google.com/nsplknsplk" target="_blank" title="Google">
+                      
+                        <i class="fa fa-fw fa-google"></i>Google</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://weibo.com/your-user-name" target="_blank" title="微博">
+                      
+                        <i class="fa fa-fw fa-weibo"></i>微博</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://www.zhihu.com/people/your-user-name" target="_blank" title="知乎">
+                      
+                        <i class="fa fa-fw fa-zhihu"></i>知乎</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#CICD"><span class="nav-number">1.</span> <span class="nav-text">CICD</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#事件-on-push"><span class="nav-number">1.0.1.</span> <span class="nav-text">事件: on push</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#命令-Job-与脚本"><span class="nav-number">1.0.2.</span> <span class="nav-text">命令: Job 与脚本</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分支的合并策略-主分支保护规则"><span class="nav-number">1.1.</span> <span class="nav-text">分支的合并策略 (主分支保护规则)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ssh案例"><span class="nav-number">1.1.1.</span> <span class="nav-text">ssh案例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自建-Runner"><span class="nav-number">1.2.</span> <span class="nav-text">自建 Runner</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">link</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'ohCdgFTxBCqGAWc738RfOoS4-gzGzoHsz',
+        appKey: 'ePCpct3dlRSGr3dY2Og1UQSY',
+        placeholder: '来来来  输入你的评论吧',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.4"></script>
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("ohCdgFTxBCqGAWc738RfOoS4-gzGzoHsz", "ePCpct3dlRSGr3dY2Og1UQSY");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
