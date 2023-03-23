@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="部署,">
 
 
 
@@ -81,19 +81,20 @@
 
 
 
-<meta name="description" content="Dockerfile一般来说，根据以下三步，可以将脚本命令翻译成 Dockerfile。  选择一个基础镜像。可在 Docker Hub (opens new window)中进行查找镜像。由于前端项目依赖于 Node 环境，我们选择 node:14-alpine (opens new window)作为基础镜像，其中基于轻量操作系统 alpine，内置了 node14/npm/yarn 等运行环">
+<meta name="description" content="Dockerfile">
+<meta name="keywords" content="部署">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Filip">
+<meta property="og:title" content="Dockerfile">
 <meta property="og:url" content="https://kitions.github.io/2022/12/02/2022-12-02Dockerfile/index.html">
 <meta property="og:site_name" content="Filip">
-<meta property="og:description" content="Dockerfile一般来说，根据以下三步，可以将脚本命令翻译成 Dockerfile。  选择一个基础镜像。可在 Docker Hub (opens new window)中进行查找镜像。由于前端项目依赖于 Node 环境，我们选择 node:14-alpine (opens new window)作为基础镜像，其中基于轻量操作系统 alpine，内置了 node14/npm/yarn 等运行环">
+<meta property="og:description" content="Dockerfile">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://tva1.sinaimg.cn/large/008vxvgGgy1h8pa8u7ie4j30v4054759.jpg">
 <meta property="og:image" content="https://tva1.sinaimg.cn/large/008vxvgGgy1h8pghbkbegj30u01y2gpv.jpg">
-<meta property="og:updated_time" content="2022-12-28T06:16:14.382Z">
+<meta property="og:updated_time" content="2023-03-23T03:26:47.411Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Filip">
-<meta name="twitter:description" content="Dockerfile一般来说，根据以下三步，可以将脚本命令翻译成 Dockerfile。  选择一个基础镜像。可在 Docker Hub (opens new window)中进行查找镜像。由于前端项目依赖于 Node 环境，我们选择 node:14-alpine (opens new window)作为基础镜像，其中基于轻量操作系统 alpine，内置了 node14/npm/yarn 等运行环">
+<meta name="twitter:title" content="Dockerfile">
+<meta name="twitter:description" content="Dockerfile">
 <meta name="twitter:image" content="https://tva1.sinaimg.cn/large/008vxvgGgy1h8pa8u7ie4j30v4054759.jpg">
 
 
@@ -130,7 +131,7 @@
 
 
 
-  <title> | Filip</title>
+  <title>Dockerfile | Filip</title>
   
 
 
@@ -322,7 +323,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline"></h2>
+          <h2 class="post-title" itemprop="name headline">Dockerfile</h2>
         
 
         <div class="post-meta">
@@ -334,7 +335,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-12-02T10:57:35+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-12-02T13:12:44+08:00">
                 2022-12-02
               </time>
             
@@ -344,6 +345,28 @@
             
           </span>
 
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/部署/" itemprop="url" rel="index">
+                    <span itemprop="name">部署</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -362,7 +385,7 @@
 
           
           
-             <span id="/2022/12/02/2022-12-02Dockerfile/" class="leancloud_visitors" data-flag-title="">
+             <span id="/2022/12/02/2022-12-02Dockerfile/" class="leancloud_visitors" data-flag-title="Dockerfile">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -378,6 +401,10 @@
 
           
 
+          
+              <div class="post-description">
+                  Dockerfile
+              </div>
           
 
         </div>
@@ -400,14 +427,14 @@
 <li>启动服务命令放在 CMD 指令中。</li>
 </ol>
 <p>next项目</p>
-<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># link 2209 test</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Install dependencies only when needed</span></span><br><span class="line"><span class="keyword">FROM</span> node:<span class="number">16</span>-alpine AS deps</span><br><span class="line"><span class="comment"># Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.</span></span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> apk add --no-cache libc6-compat</span></span><br><span class="line"><span class="bash">WORKDIR /app</span></span><br><span class="line"><span class="bash"></span></span><br><span class="line"><span class="bash"><span class="comment"># Install dependencies based on the preferred package manager</span></span></span><br><span class="line"><span class="bash">COPY .npmrc package.json yarn.lock* package-lock.json* pnpm-lock.yaml* ./</span></span><br><span class="line"><span class="bash">RUN \</span></span><br><span class="line"><span class="bash">	<span class="keyword">if</span> [ -f pnpm-lock.yaml ]; <span class="keyword">then</span> yarn global add pnpm &amp;&amp; pnpm i; \</span></span><br><span class="line"><span class="bash">  <span class="keyword">elif</span> [ -f yarn.lock ]; <span class="keyword">then</span> yarn --frozen-lockfile; \</span></span><br><span class="line"><span class="bash">  <span class="keyword">elif</span> [ -f package-lock.json ]; <span class="keyword">then</span> npm ci; \</span></span><br><span class="line"><span class="bash">  <span class="keyword">else</span> <span class="built_in">echo</span> <span class="string">"Lockfile not found."</span> &amp;&amp; <span class="built_in">exit</span> 1; \</span></span><br><span class="line"><span class="bash">  <span class="keyword">fi</span></span></span><br><span class="line"><span class="bash"></span></span><br><span class="line"><span class="bash"></span></span><br><span class="line"><span class="bash"><span class="comment"># Rebuild the source code only when needed</span></span></span><br><span class="line"><span class="bash">FROM node:16-alpine AS builder</span></span><br><span class="line"><span class="bash">WORKDIR /app</span></span><br><span class="line"><span class="bash">COPY --from=deps /app/node_modules ./node_modules</span></span><br><span class="line"><span class="bash">COPY . .</span></span><br><span class="line"><span class="bash"></span></span><br><span class="line"><span class="bash"><span class="comment"># Next.js collects completely anonymous telemetry data about general usage.</span></span></span><br><span class="line"><span class="bash"><span class="comment"># Learn more here: https://nextjs.org/telemetry</span></span></span><br><span class="line"><span class="bash"><span class="comment"># Uncomment the following line in case you want to disable telemetry during the build.</span></span></span><br><span class="line"><span class="bash"><span class="comment"># ENV NEXT_TELEMETRY_DISABLED 1</span></span></span><br><span class="line"><span class="bash">ENV NEXT_TELEMETRY_DISABLED 1</span></span><br><span class="line"><span class="bash">RUN yarn build</span></span><br><span class="line"><span class="bash"></span></span><br><span class="line"><span class="bash"><span class="comment"># If using npm comment out above and use below instead</span></span></span><br><span class="line"><span class="bash"><span class="comment"># RUN npm run build</span></span></span><br><span class="line"><span class="bash"></span></span><br><span class="line"><span class="bash"><span class="comment"># Production image, copy all the files and run next</span></span></span><br><span class="line"><span class="bash">FROM node:16-alpine AS runner</span></span><br><span class="line"><span class="bash">WORKDIR /app</span></span><br><span class="line"><span class="bash"></span></span><br><span class="line"><span class="bash">ENV NODE_ENV production</span></span><br><span class="line"><span class="bash"><span class="comment"># Uncomment the following line in case you want to disable telemetry during runtime.</span></span></span><br><span class="line"><span class="bash">ENV NEXT_TELEMETRY_DISABLED 1</span></span><br><span class="line"><span class="bash"></span></span><br><span class="line"><span class="bash">RUN addgroup --system --gid 1001 nodejs</span></span><br><span class="line"><span class="bash">RUN adduser --system --uid 1001 nextjs</span></span><br><span class="line"><span class="bash"></span></span><br><span class="line"><span class="bash">COPY --from=builder /app/public ./public</span></span><br><span class="line"><span class="bash"></span></span><br><span class="line"><span class="bash"></span></span><br><span class="line"><span class="bash"><span class="comment"># Automatically leverage output traces to reduce image size</span></span></span><br><span class="line"><span class="bash"><span class="comment"># https://nextjs.org/docs/advanced-features/output-file-tracing</span></span></span><br><span class="line"><span class="bash">COPY --from=builder --chown=nextjs:nodejs /app/_next/standalone ./</span></span><br><span class="line"><span class="bash">COPY --from=builder --chown=nextjs:nodejs /app/_next/static ./_next/static</span></span><br><span class="line"><span class="bash"></span></span><br><span class="line"><span class="bash">USER nextjs</span></span><br><span class="line"><span class="bash"></span></span><br><span class="line"><span class="bash">EXPOSE 3000</span></span><br><span class="line"><span class="bash"></span></span><br><span class="line"><span class="bash">ENV PORT 3000</span></span><br><span class="line"><span class="bash"></span></span><br><span class="line"><span class="bash">CMD [<span class="string">"node"</span>, <span class="string">"server.js"</span>]</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># link 2209 test</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Install dependencies only when needed</span></span><br><span class="line"><span class="keyword">FROM</span> node:<span class="number">16</span>-alpine AS deps</span><br><span class="line"><span class="comment"># Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.</span></span><br><span class="line"><span class="keyword">RUN</span> apk add --no-cache libc6-compat</span><br><span class="line">WORKDIR /app</span><br><span class="line"></span><br><span class="line"># Install dependencies based on the preferred package manager</span><br><span class="line">COPY .npmrc package.json yarn.lock* package-lock.json* pnpm-lock.yaml* ./</span><br><span class="line">RUN \</span><br><span class="line">	if [ -f pnpm-lock.yaml ]; then yarn global add pnpm &amp;&amp; pnpm i; \</span><br><span class="line">  elif [ -f yarn.lock ]; then yarn --frozen-lockfile; \</span><br><span class="line">  elif [ -f package-lock.json ]; then npm ci; \</span><br><span class="line">  else echo "Lockfile not found." &amp;&amp; exit 1; \</span><br><span class="line">  fi</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># Rebuild the source code only when needed</span><br><span class="line">FROM node:16-alpine AS builder</span><br><span class="line">WORKDIR /app</span><br><span class="line">COPY --from=deps /app/node_modules ./node_modules</span><br><span class="line">COPY . .</span><br><span class="line"></span><br><span class="line"># Next.js collects completely anonymous telemetry data about general usage.</span><br><span class="line"># Learn more here: https://nextjs.org/telemetry</span><br><span class="line"># Uncomment the following line in case you want to disable telemetry during the build.</span><br><span class="line"># ENV NEXT_TELEMETRY_DISABLED 1</span><br><span class="line">ENV NEXT_TELEMETRY_DISABLED 1</span><br><span class="line">RUN yarn build</span><br><span class="line"></span><br><span class="line"># If using npm comment out above and use below instead</span><br><span class="line"># RUN npm run build</span><br><span class="line"></span><br><span class="line"># Production image, copy all the files and run next</span><br><span class="line">FROM node:16-alpine AS runner</span><br><span class="line">WORKDIR /app</span><br><span class="line"></span><br><span class="line">ENV NODE_ENV production</span><br><span class="line"># Uncomment the following line in case you want to disable telemetry during runtime.</span><br><span class="line">ENV NEXT_TELEMETRY_DISABLED 1</span><br><span class="line"></span><br><span class="line">RUN addgroup --system --gid 1001 nodejs</span><br><span class="line">RUN adduser --system --uid 1001 nextjs</span><br><span class="line"></span><br><span class="line">COPY --from=builder /app/public ./public</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># Automatically leverage output traces to reduce image size</span><br><span class="line"># https://nextjs.org/docs/advanced-features/output-file-tracing</span><br><span class="line">COPY --from=builder --chown=nextjs:nodejs /app/_next/standalone ./</span><br><span class="line">COPY --from=builder --chown=nextjs:nodejs /app/_next/static ./_next/static</span><br><span class="line"></span><br><span class="line">USER nextjs</span><br><span class="line"></span><br><span class="line">EXPOSE 3000</span><br><span class="line"></span><br><span class="line">ENV PORT 3000</span><br><span class="line"></span><br><span class="line">CMD ["node", "server.js"]</span><br></pre></td></tr></table></figure>
 <h2 id="构建镜像-Image"><a href="#构建镜像-Image" class="headerlink" title="构建镜像 (Image)"></a>构建镜像 (Image)</h2><p>使用 <code>docker build</code>命令可以基于DockerFile 构建镜像</p>
 <p>镜像构建成功后，我们可以将仓库上传到Docker仓库，如Docker Hub</p>
 <p>而对于业务项目而言，一般会上传至公司内部的私有镜像仓库，比如通过 <a href="https://github.com/goharbor/harbor" target="_blank" rel="noopener">harbor (opens new window)</a>搭建的私有镜像仓库。</p>
 <figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 构建一个名为 simple-app 的镜像</span></span><br><span class="line"><span class="comment"># -t: "name:tag" 构建镜像名称</span></span><br><span class="line">$ docker build -t simple-app .</span><br><span class="line"></span><br><span class="line"><span class="comment"># git rev-parse --short HEAD: 列出当前仓库的 CommitId</span></span><br><span class="line"><span class="comment"># 也可将当前 Commit 作为镜像的 Tag</span></span><br><span class="line"><span class="comment"># 如果该前端项目使用 git tag 以及 package.json 中的 version 进行版本维护，也可将 version 作为生产环境镜像的 Tag</span></span><br><span class="line">$ docker build -t simple-app:$(git rev-parse --short HEAD)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 构建成功后，可用该命令列出所有的镜像</span></span><br><span class="line"><span class="comment"># 发现该镜像占用体积 133MB</span></span><br><span class="line">$ docker images</span><br><span class="line">REPOSITORY    TAG       IMAGE ID       CREATED         SIZE</span><br><span class="line">simaple-app   latest    <span class="number">20</span>afeb439c58   <span class="number">3</span> minutes ago   <span class="number">146</span>MB</span><br></pre></td></tr></table></figure>
 <p>此时构建镜像成功，通过 <code>docker images</code> 可知镜像体积为 <strong>133MB</strong>。</p>
 <h2 id="运行容器"><a href="#运行容器" class="headerlink" title="运行容器"></a>运行容器</h2><p>我们可以基于镜像运行 N 个容器，而本次启动的容器也是我们最终所要提供的静态服务。</p>
-<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 根据该镜像运行容器</span></span><br><span class="line"><span class="comment"># 如果需要在后台运行则添加 -d 选项</span></span><br><span class="line"><span class="comment"># --rm: 当容器停止运行时，自动删除容器</span></span><br><span class="line"><span class="comment"># -p: 3000:3000，将容器中的 3000 端口映射到宿主机的 3000 端口，左侧端口为宿主机端口，右侧为容器端口</span></span><br><span class="line">docker <span class="keyword">run</span><span class="bash"> --rm -p 3000:3000 simaple-app</span></span><br><span class="line"><span class="bash"></span></span><br><span class="line"><span class="bash"><span class="comment"># 运行成功后可在另一个窗口查看所有容器</span></span></span><br><span class="line"><span class="bash">➜  next-starter git:(next_docker) ✗ docker ps</span></span><br><span class="line"><span class="bash">CONTAINER ID   IMAGE         COMMAND                  CREATED         STATUS         PORTS                    NAMES</span></span><br><span class="line"><span class="bash">dfabb0d0a8e4   simaple-app   <span class="string">"docker-entrypoint.s…"</span>   4 minutes ago   Up 4 minutes   0.0.0.0:3000-&gt;3000/tcp   angry_chatterjee</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 根据该镜像运行容器</span></span><br><span class="line"><span class="comment"># 如果需要在后台运行则添加 -d 选项</span></span><br><span class="line"><span class="comment"># --rm: 当容器停止运行时，自动删除容器</span></span><br><span class="line"><span class="comment"># -p: 3000:3000，将容器中的 3000 端口映射到宿主机的 3000 端口，左侧端口为宿主机端口，右侧为容器端口</span></span><br><span class="line">docker <span class="keyword">run</span> --rm -p 3000:3000 simaple-app</span><br><span class="line"></span><br><span class="line"># 运行成功后可在另一个窗口查看所有容器</span><br><span class="line">➜  next-starter git:(next_docker) ✗ docker ps</span><br><span class="line">CONTAINER ID   IMAGE         COMMAND                  CREATED         STATUS         PORTS                    NAMES</span><br><span class="line">dfabb0d0a8e4   simaple-app   "docker-entrypoint.s…"   4 minutes ago   Up 4 minutes   0.0.0.0:3000-&gt;3000/tcp   angry_chatterjee</span><br></pre></td></tr></table></figure>
 <p><img src="https://tva1.sinaimg.cn/large/008vxvgGgy1h8pa8u7ie4j30v4054759.jpg" alt="image-20221202110051764"></p>
 <p>此时在本地访问 <code>http://localhost:3000</code> 访问成功</p>
 <p>然而，通过冗余繁琐的命令行构建镜像和容器，比如管理端口，存储、环境变量等，有其天然的劣势，不易维护。</p>
@@ -468,6 +495,12 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/部署/" rel="tag"># 部署</a>
+          
+        </div>
+      
 
       
       
@@ -477,8 +510,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2022/11/10/221013Recoil/" rel="next" title="React状态管理库Recoil浅入浅出">
-                <i class="fa fa-chevron-left"></i> React状态管理库Recoil浅入浅出
+              <a href="/2022/12/01/2022-12-01docker 指南/" rel="next" title="docker 指南">
+                <i class="fa fa-chevron-left"></i> docker 指南
               </a>
             
           </div>
@@ -487,8 +520,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2022/12/05/2022-12-01docker 指南/" rel="prev" title="">
-                 <i class="fa fa-chevron-right"></i>
+              <a href="/2022/12/12/2022-12-03CICD/" rel="prev" title="部署CICD">
+                部署CICD <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
