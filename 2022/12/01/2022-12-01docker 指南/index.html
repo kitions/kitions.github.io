@@ -89,14 +89,14 @@
 <meta property="og:site_name" content="Filip">
 <meta property="og:description" content="docker 使应用部署更加轻量，可移植，可扩展，更好的环境隔离也更大程度地避免了生产环境与测试环境不一致的巨大尴尬。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/008vxvgGgy1h8sqhjkyg5j30l10b0my7.jpg">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/008vxvgGgy1h8sqlivuzyj30vy0u0ju8.jpg">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/008vxvgGgy1h8sqoupmk8j31cs0u00w6.jpg">
-<meta property="og:updated_time" content="2023-03-23T03:26:26.338Z">
+<meta property="og:image" content="https://tuchuang-1253437688.cos.ap-shanghai.myqcloud.com/md%E5%9B%BE%E5%BA%8A/image-20230421170616756.png">
+<meta property="og:image" content="https://tuchuang-1253437688.cos.ap-shanghai.myqcloud.com/md%E5%9B%BE%E5%BA%8A/image-20230421154935226.png">
+<meta property="og:image" content="https://tuchuang-1253437688.cos.ap-shanghai.myqcloud.com/md%E5%9B%BE%E5%BA%8A/image-20230421155022894.png">
+<meta property="og:updated_time" content="2023-04-21T09:06:20.494Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="docker 指南">
 <meta name="twitter:description" content="docker 使应用部署更加轻量，可移植，可扩展，更好的环境隔离也更大程度地避免了生产环境与测试环境不一致的巨大尴尬。">
-<meta name="twitter:image" content="https://tva1.sinaimg.cn/large/008vxvgGgy1h8sqhjkyg5j30l10b0my7.jpg">
+<meta name="twitter:image" content="https://tuchuang-1253437688.cos.ap-shanghai.myqcloud.com/md%E5%9B%BE%E5%BA%8A/image-20230421170616756.png">
 
 
 
@@ -423,7 +423,7 @@
       
         <h1 id="docker-指南"><a href="#docker-指南" class="headerlink" title="docker 指南"></a>docker 指南</h1><p><code>docker</code> 使应用部署更加轻量，可移植，可扩展，更好的环境隔离也更大程度地避免了生产环境与测试环境不一致的巨大尴尬。</p>
 <p>由于 <code>docker</code> 轻便可移植的特点也极大促进了 <code>CI/CD</code> 的发展。</p>
-<p><img src="https://tva1.sinaimg.cn/large/008vxvgGgy1h8sqhjkyg5j30l10b0my7.jpg" alt="Docker Architecture Diagram"></p>
+<p><img src="https://tuchuang-1253437688.cos.ap-shanghai.myqcloud.com/md%E5%9B%BE%E5%BA%8A/image-20230421170616756.png" alt="image-20230421170616756"></p>
 <ul>
 <li><code>docker client</code>： 命令行工具</li>
 <li><code>Docker host</code> : 宿主机， Docker Daemon的运行环境服务器</li>
@@ -433,8 +433,8 @@
 <li><code>registry</code>: 镜像仓库，存储大量镜像，可以从镜像仓库拉取和推送镜像</li>
 </ul>
 <p><a href="https://www.docker.com/get-started/" target="_blank" rel="noopener">Docker 安装</a></p>
-<p><img src="https://tva1.sinaimg.cn/large/008vxvgGgy1h8sqlivuzyj30vy0u0ju8.jpg" alt="image-20221205104322153"></p>
-<p><img src="https://tva1.sinaimg.cn/large/008vxvgGgy1h8sqoupmk8j31cs0u00w6.jpg" alt="image-20221205104634580"></p>
+<p><img src="https://tuchuang-1253437688.cos.ap-shanghai.myqcloud.com/md%E5%9B%BE%E5%BA%8A/image-20230421154935226.png" alt="image-20230421154935226"></p>
+<p><img src="https://tuchuang-1253437688.cos.ap-shanghai.myqcloud.com/md%E5%9B%BE%E5%BA%8A/image-20230421155022894.png" alt="image-20230421155022894"></p>
 <h2 id="底层原理"><a href="#底层原理" class="headerlink" title="底层原理"></a>底层原理</h2><p><code>docker</code> 底层使用了一些 <code>linux</code> 内核的特性，大概有 <code>namespace</code>，<code>cgroups</code> 和 <code>ufs</code>。</p>
 <h3 id="Namespace"><a href="#Namespace" class="headerlink" title="Namespace"></a>Namespace</h3><p>docker 使用 linux namespace 构建隔离的环境，它由一下的<code>namespace</code>组成</p>
 <ul>

@@ -89,13 +89,13 @@
 <meta property="og:site_name" content="Filip">
 <meta property="og:description" content="Dockerfile">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/008vxvgGgy1h8pa8u7ie4j30v4054759.jpg">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/008vxvgGgy1h8pghbkbegj30u01y2gpv.jpg">
-<meta property="og:updated_time" content="2023-03-23T03:26:47.411Z">
+<meta property="og:image" content="https://tuchuang-1253437688.cos.ap-shanghai.myqcloud.com/md%E5%9B%BE%E5%BA%8A/image-20230421165934118.png">
+<meta property="og:image" content="https://tuchuang-1253437688.cos.ap-shanghai.myqcloud.com/md%E5%9B%BE%E5%BA%8A/image111.jpeg">
+<meta property="og:updated_time" content="2023-04-21T09:00:37.851Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Dockerfile">
 <meta name="twitter:description" content="Dockerfile">
-<meta name="twitter:image" content="https://tva1.sinaimg.cn/large/008vxvgGgy1h8pa8u7ie4j30v4054759.jpg">
+<meta name="twitter:image" content="https://tuchuang-1253437688.cos.ap-shanghai.myqcloud.com/md%E5%9B%BE%E5%BA%8A/image-20230421165934118.png">
 
 
 
@@ -435,7 +435,7 @@
 <p>此时构建镜像成功，通过 <code>docker images</code> 可知镜像体积为 <strong>133MB</strong>。</p>
 <h2 id="运行容器"><a href="#运行容器" class="headerlink" title="运行容器"></a>运行容器</h2><p>我们可以基于镜像运行 N 个容器，而本次启动的容器也是我们最终所要提供的静态服务。</p>
 <figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 根据该镜像运行容器</span></span><br><span class="line"><span class="comment"># 如果需要在后台运行则添加 -d 选项</span></span><br><span class="line"><span class="comment"># --rm: 当容器停止运行时，自动删除容器</span></span><br><span class="line"><span class="comment"># -p: 3000:3000，将容器中的 3000 端口映射到宿主机的 3000 端口，左侧端口为宿主机端口，右侧为容器端口</span></span><br><span class="line">docker <span class="keyword">run</span> --rm -p 3000:3000 simaple-app</span><br><span class="line"></span><br><span class="line"># 运行成功后可在另一个窗口查看所有容器</span><br><span class="line">➜  next-starter git:(next_docker) ✗ docker ps</span><br><span class="line">CONTAINER ID   IMAGE         COMMAND                  CREATED         STATUS         PORTS                    NAMES</span><br><span class="line">dfabb0d0a8e4   simaple-app   "docker-entrypoint.s…"   4 minutes ago   Up 4 minutes   0.0.0.0:3000-&gt;3000/tcp   angry_chatterjee</span><br></pre></td></tr></table></figure>
-<p><img src="https://tva1.sinaimg.cn/large/008vxvgGgy1h8pa8u7ie4j30v4054759.jpg" alt="image-20221202110051764"></p>
+<p><img src="https://tuchuang-1253437688.cos.ap-shanghai.myqcloud.com/md%E5%9B%BE%E5%BA%8A/image-20230421165934118.png" alt="image-20230421165934118"></p>
 <p>此时在本地访问 <code>http://localhost:3000</code> 访问成功</p>
 <p>然而，通过冗余繁琐的命令行构建镜像和容器，比如管理端口，存储、环境变量等，有其天然的劣势，不易维护。</p>
 <h2 id="Using-Docker"><a href="#Using-Docker" class="headerlink" title="Using Docker"></a>Using Docker</h2><ol>
@@ -451,7 +451,8 @@
 <p>配置结束之后，即可通过一行命令 docker-compose up 替代以前关于构建及运行容器的所有命令。</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># up: 创建并启动容器</span></span><br><span class="line"><span class="comment"># --build: 每次启动容器前构建镜像</span></span><br><span class="line">$ docker-compose up --build</span><br></pre></td></tr></table></figure>
 <figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"><span class="meta-keyword">.PHONY</span>: build-development</span></span><br><span class="line"><span class="section">build-development: ## Build the development docker image.</span></span><br><span class="line">	docker compose -f docker/development/docker-compose.yml build</span><br><span class="line"></span><br><span class="line"><span class="meta"><span class="meta-keyword">.PHONY</span>: start-development</span></span><br><span class="line"><span class="section">start-development: ## Start the development docker container.</span></span><br><span class="line">	docker compose -f docker/development/docker-compose.yml up -d</span><br></pre></td></tr></table></figure>
-<h2 id="服务器原始打包编译过程："><a href="#服务器原始打包编译过程：" class="headerlink" title="服务器原始打包编译过程："></a>服务器原始打包编译过程：<img src="https://tva1.sinaimg.cn/large/008vxvgGgy1h8pghbkbegj30u01y2gpv.jpg" alt="前端发版流程"></h2>
+<h2 id="服务器原始打包编译过程："><a href="#服务器原始打包编译过程：" class="headerlink" title="服务器原始打包编译过程："></a>服务器原始打包编译过程：</h2><p><img src="https://tuchuang-1253437688.cos.ap-shanghai.myqcloud.com/md%E5%9B%BE%E5%BA%8A/image111.jpeg" alt="image111"></p>
+
       
     </div>
     

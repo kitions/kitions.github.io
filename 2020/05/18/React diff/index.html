@@ -97,13 +97,13 @@
 <meta property="og:image" content="https://i.loli.net/2020/05/18/tGXixoF8fMYVhDa.png">
 <meta property="og:image" content="https://i.loli.net/2020/05/18/SpXsxoKOGFJmEbj.png">
 <meta property="og:image" content="https://i.loli.net/2020/05/18/AOauJGyqPtEoHNW.png">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlgy1gf72uvqaenj30df0fdjtm.jpg">
+<meta property="og:image" content="https://tuchuang-1253437688.cos.ap-shanghai.myqcloud.com/md%E5%9B%BE%E5%BA%8A/image-20230506112857647.png">
 <meta property="og:image" content="https://i.loli.net/2020/05/18/r8vweGqTnVLUaic.png">
 <meta property="og:image" content="https://i.loli.net/2020/05/18/WI7XbhK84QuJej5.png">
 <meta property="og:image" content="https://i.loli.net/2020/05/14/b4J7ntmFZLOlaAK.png">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlgy1geqli50hv8j30b005uweh.jpg">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlgy1geqliamkyej30az05kglm.jpg">
-<meta property="og:updated_time" content="2022-10-17T03:30:46.827Z">
+<meta property="og:image" content="https://tuchuang-1253437688.cos.ap-shanghai.myqcloud.com/md%E5%9B%BE%E5%BA%8A/image-20230506113003124.png">
+<meta property="og:image" content="https://tuchuang-1253437688.cos.ap-shanghai.myqcloud.com/md%E5%9B%BE%E5%BA%8A/image-20230506113047182.png">
+<meta property="og:updated_time" content="2023-05-06T03:31:07.543Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="React 两大特色之React diff">
 <meta name="twitter:description" content="React 的两大特色：React diff 和 Virtual Dom。React 中最值得称道的部分莫过于 Virtual DOM 与 diff 的完美结合，特别是其高效的 diff 算法，让用户可以无需顾忌性能问题而”任性自由”的刷新页面，让开发者也可以无需关心 Virtual DOM 背后的运作原理，因为 React diff 会帮助我们计算出 Virtual DOM 中真正变化的部分，并">
@@ -565,7 +565,7 @@
 </li>
 </ul>
 <p>  <del>老版本React源码中的enqueueMove(this, child._mountIndex, toIndex)，其中 toIndex 其实就是 nextIndex</del></p>
-<p>  <img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gf72uvqaenj30df0fdjtm.jpg" alt="image-20200527161523369"></p>
+<p>  <img src="https://tuchuang-1253437688.cos.ap-shanghai.myqcloud.com/md%E5%9B%BE%E5%BA%8A/image-20230506112857647.png" alt="image-20230506112857647"></p>
 <hr>
 <p>上面例子是新旧集合中的节点都是相同的节点的情况下，那如果新集合中有新加入的节点且旧集合存在 需要删除的节点，那么 diff 又是如何对比运作的</p>
 <p>ABCD –&gt; BECA</p>
@@ -652,7 +652,7 @@
 <p> <img src="https://i.loli.net/2020/05/14/b4J7ntmFZLOlaAK.png" alt=""></p>
 <h4 id="子树渲染"><a href="#子树渲染" class="headerlink" title="子树渲染"></a>子树渲染</h4><p>调用setState方法时，component会重新构建包括子树子节点的virtual DOM 。如果你在根节点调用<code>setState</code>,整个React应用都会被重新渲染。所有的component，即便没有更新，都会调用他们的render方法，这个听起来很可怕，性能实际上很低，但实际上我们不会触及真实的DOM，运行起来就没问题。</p>
 <p>在写react代码时，每当数据有更新，你都不会算调用根节点的<code>setState</code>。你会在需要接收对应的component上调用，或者在上面的几个component。你很少要一直到根节点。就是说页面更新只出现在用户交互的部分。</p>
-<p><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1geqli50hv8j30b005uweh.jpg" alt="img"></p>
+<p><img src="https://tuchuang-1253437688.cos.ap-shanghai.myqcloud.com/md%E5%9B%BE%E5%BA%8A/image-20230506113003124.png" alt="image-20230506113003124"></p>
 <h4 id="选择子树渲染"><a href="#选择子树渲染" class="headerlink" title="选择子树渲染"></a>选择子树渲染</h4><p>去掉一些子树的重新渲染.</p>
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">boolean</span> shouldComponentUpdate(object nextProps, object nextState)</span><br></pre></td></tr></table></figure>
 <p>根据component的前一个和下一个<code>props/state</code>， 你可以告诉React这个component没有更新，也不需要重绘</p>
@@ -660,7 +660,7 @@
 <p>注意, 这个函数每次都会被调用, 所以你要确保运行起来花的时间更少,<br>比 React 的做法时间少, 还有比计算 component 需要的时间少,<br>即便重新绘制并不是必要的.</p>
 <p>Ps: 不过有可能你的方法里写的比React花费的时间更多</p>
 </blockquote>
-<p><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1geqliamkyej30az05kglm.jpg" alt="img"></p>
+<p><img src="https://tuchuang-1253437688.cos.ap-shanghai.myqcloud.com/md%E5%9B%BE%E5%BA%8A/image-20230506113047182.png" alt="image-20230506113047182"></p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
 <li><p>React的高效得益于VIrtual DOM + React diff的体系。diff算法并非React独创，react只是在传统的diff算法中做了优化。但因为优化，将diff算法的时间复杂度一下从O(n^3) 降到了 O(n)。</p>
 </li>

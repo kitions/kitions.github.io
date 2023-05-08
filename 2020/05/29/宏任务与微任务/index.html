@@ -89,15 +89,15 @@
 <meta property="og:site_name" content="Filip">
 <meta property="og:description" content="copy from  wenjie, 分析的很到位，也非常详细。遇到宏任务，先处理宏任务——将宏任务放入Event Queue，然后再处理微任务——将微任务放入Event Queue。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlgy1ggabuqi9gbj313s0u0n1x.jpg">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlgy1ggabvgopfkj31470u0jyq.jpg">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlgy1ggabvmfj03j30vw0qo7fl.jpg">
+<meta property="og:image" content="https://tuchuang-1253437688.cos.ap-shanghai.myqcloud.com/md%E5%9B%BE%E5%BA%8A/image-20230428112130558.png">
+<meta property="og:image" content="https://tuchuang-1253437688.cos.ap-shanghai.myqcloud.com/md%E5%9B%BE%E5%BA%8A/image-20230428114659761.png">
+<meta property="og:image" content="https://tuchuang-1253437688.cos.ap-shanghai.myqcloud.com/md%E5%9B%BE%E5%BA%8A/image-20230428112435241.png">
 <meta property="og:image" content="https://bucket-1256530863.cos.ap-shanghai.myqcloud.com/tapd_55367591_1587814302_40.png">
-<meta property="og:updated_time" content="2022-10-17T03:30:46.829Z">
+<meta property="og:updated_time" content="2023-04-28T03:47:01.998Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="宏任务与微任务">
 <meta name="twitter:description" content="copy from  wenjie, 分析的很到位，也非常详细。遇到宏任务，先处理宏任务——将宏任务放入Event Queue，然后再处理微任务——将微任务放入Event Queue。">
-<meta name="twitter:image" content="https://tva1.sinaimg.cn/large/007S8ZIlgy1ggabuqi9gbj313s0u0n1x.jpg">
+<meta name="twitter:image" content="https://tuchuang-1253437688.cos.ap-shanghai.myqcloud.com/md%E5%9B%BE%E5%BA%8A/image-20230428112130558.png">
 
 
 
@@ -423,15 +423,15 @@
 
       
         <h1 id="宏任务与微任务"><a href="#宏任务与微任务" class="headerlink" title="宏任务与微任务"></a>宏任务与微任务</h1><p>在点击事件冒泡捕获的处理中，通过使用setTimeout 的方式，想要调整某个代码的执行顺序的话，其具体的执行顺序，由一套  <strong>机制</strong>  去实现，这套机制就是通过定义 <strong>宏任务与微任务</strong> 来安排执行顺序。</p>
-<h2 id="异步机制：javascript事件循环"><a href="#异步机制：javascript事件循环" class="headerlink" title="异步机制：javascript事件循环"></a>异步机制：javascript事件循环</h2><h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><p><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1ggabuqi9gbj313s0u0n1x.jpg" alt="image-20200507113822255"></p>
+<h2 id="异步机制：javascript事件循环"><a href="#异步机制：javascript事件循环" class="headerlink" title="异步机制：javascript事件循环"></a>异步机制：javascript事件循环</h2><h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><p><img src="https://tuchuang-1253437688.cos.ap-shanghai.myqcloud.com/md%E5%9B%BE%E5%BA%8A/image-20230428112130558.png" alt="image-20230428112130558"></p>
 <p><strong>内存堆</strong>：这是内存分配发生的地方。当V8引擎遇到变量声明和函数声明的时候，就把它们存储在堆里面。</p>
 <p><strong>调用栈</strong>：这是你的代码执行时的地方。当引擎遇到像函数调用之类的可执行单元，就会把它们推入调用栈。</p>
 <p>JS单线程，指的是在JS引擎中，解析执行JS代码的调用栈是唯一的，所有的JS代码都在这一个调用栈里按照调用顺序执行，不能同时执行多个函数。</p>
-<p><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1ggabvgopfkj31470u0jyq.jpg" alt="image-20200507154251938" style="zoom: 33%;"></p>
+<p><img src="https://tuchuang-1253437688.cos.ap-shanghai.myqcloud.com/md%E5%9B%BE%E5%BA%8A/image-20230428114659761.png" alt="image-20230428114659761"></p>
 <p><strong>Web APIs</strong>：还有很多引擎之外的 API，我们把这些称为浏览器提供的 Web API，比如说 事件监听函数、DOM、HTTP／AJAX请求、setTimeout等等。</p>
 <p><strong>回调队列</strong>（Event Queue)：按照<strong>先进先出</strong>的顺序存储所有的回调函数。在任意时间，只要Web API容器中的事件达到触发条件，就可以把回调函数添加到回调队列中去。</p>
 <p><strong>事件循环 </strong> (Event Loop)：持续的检测调用栈和回调队列，如果检测到调用栈为空，它就会通知回调队列把队列中的第一个回调函数推入执行栈。</p>
-<h3 id="机制"><a href="#机制" class="headerlink" title="机制"></a>机制</h3><p><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1ggabvmfj03j30vw0qo7fl.jpg" alt="tapd_55367591_base64_1587813146_16"></p>
+<h3 id="机制"><a href="#机制" class="headerlink" title="机制"></a>机制</h3><p><img src="https://tuchuang-1253437688.cos.ap-shanghai.myqcloud.com/md%E5%9B%BE%E5%BA%8A/image-20230428112435241.png" alt="image-20230428112435241"></p>
 <p>JS运行时环境的工作机制：</p>
 <ol>
 <li><strong>JS引擎</strong>：（唯一主线程）按顺序解析代码，遇到函数声明，入堆，遇到函数调用，入栈；</li>
